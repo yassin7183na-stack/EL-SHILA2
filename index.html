@@ -122,7 +122,6 @@
             color: #38bdf8;
         }
 
-        /* شاشة النقاش والعد التنازلي */
         .timer-display {
             font-size: 3rem;
             font-weight: bold;
@@ -154,15 +153,15 @@
                 <select id="category">
                     <option value="footballers">⚽ لاعبو كرة قدم</option>
                     <option value="food">🍕 أطعمة ومأكولات</option>
-                    <option value="actors">🎬 ممثلون ومشاهير</option>
+                    <option value="actors">🎬 ممثلون ومشاهدير</option>
                     <option value="countries">🌍 دول وعواصم</option>
                 </select>
             </div>
 
-            <button onclick="startGame()">ابدأ المعركة اللعبة</button>
+            <button onclick="startGame()">ابدأ اللعبة</button>
         </div>
 
-        <!-- شاشة تمرير الهاتف / توزيع الكلمات -->
+        <!-- شاشة توزيع الكلمات -->
         <div id="game-screen" class="hidden">
             <h2 id="current-player-title" style="color: #c084fc;">دور اللاعب 1</h2>
             <p style="color: #94a3b8;">أعط الهاتف للاعب المذكور واضغط زر الإظهار:</p>
@@ -176,7 +175,7 @@
             <button id="next-btn" class="hidden" onclick="nextPlayer()">إخفاء وتمرير للاعب التالي</button>
         </div>
 
-        <!-- شاشة النقاش والحماس -->
+        <!-- شاشة النقاش -->
         <div id="discussion-screen" class="hidden">
             <h1>وقت النقاش! 🗣️</h1>
             <p style="color: #94a3b8; line-height: 1.6;">تحدثوا عن كلماتكم، اطرحوا الأسئلة، واكتشفوا من هو الشخص الذي يملك الكلمة المختلفة!</p>
@@ -203,7 +202,6 @@
     </div>
 
     <script>
-        // قاعدة البيانات (تحتوي على أزواج مترابطة أو عناصر للفئات)
         const dataCategories = {
             footballers: [
                 ["محمد صلاح", "رياض محرز"],
@@ -222,7 +220,7 @@
             actors: [
                 ["عادل إمام", "محمد هنيدي"],
                 ["أحمد حلمي", "أحمد السقا"],
-                ["ليوناردو دي كابريو", براد بيت],
+                ["ليوناردو دي كابريو", "براد بيت"],
                 ["ويل سميث", "روبرت داوني جونيور"],
                 ["منى زكي", "نيللي كريم"]
             ],
@@ -237,7 +235,7 @@
 
         let totalPlayers = 4;
         let currentPlayer = 1;
-        let playerWords = []; // تخزين كلمة كل لاعب
+        let playerWords = [];
         let imposterIndex = 1;
         let mainWord = "";
         let imposterWord = "";
@@ -248,11 +246,9 @@
             totalPlayers = parseInt(document.getElementById("num-players").value);
             const selectedCategory = document.getElementById("category").value;
             
-            // اختيار زوج عشوائي من الفئة
             const pairsList = dataCategories[selectedCategory];
             const randomPair = pairsList[Math.floor(Math.random() * pairsList.length)];
             
-            // تحديد من الكلمة الأساسية ومن الكلمة المختلفة للمخادع
             if (Math.random() < 0.5) {
                 mainWord = randomPair[0];
                 imposterWord = randomPair[1];
@@ -261,23 +257,20 @@
                 imposterWord = randomPair[0];
             }
 
-            // اختيار من هو المخادع عشوائياً (من 1 إلى عدد اللاعبين)
             imposterIndex = Math.floor(Math.random() * totalPlayers) + 1;
 
-            // توزيع الكلمات على اللاعبين
             playerWords = [];
             for (let i = 1; i <= totalPlayers; i++) {
                 if (i === imposterIndex) {
-                    playerWords.push(imposterWord); // المخادع يحصل على الكلمة المختلفة ولا يعلم أنه مخادع
+                    playerWords.push(imposterWord);
                 } else {
-                    playerWords.push(mainWord); // البقية يحصلون على الكلمة الأساسية
+                    playerWords.push(mainWord);
                 }
             }
 
             currentPlayer = 1;
             isSecretShown = false;
 
-            // الانتقال لشاشة اللعبة
             document.getElementById("setup-screen").classList.add("hidden");
             document.getElementById("game-screen").classList.remove("hidden");
             
@@ -285,7 +278,6 @@
         }
 
         function updateGameScreen() {
-            document.getElementById("current-player-title.innerText = `دور اللاعب رقم ${currentPlayer}`;
             document.getElementById("current-player-title").innerText = `دور اللاعب رقم ${currentPlayer}`;
             document.getElementById("secret-container").classList.add("hidden");
             document.getElementById("toggle-btn").classList.remove("hidden");
@@ -302,7 +294,6 @@
 
             if (!isSecretShown) {
                 secretContainer.classList.remove("hidden");
-                // اللاعب يرى الكلمة المخصصة له فقط (دون أي إشارة إلى أنه مخادع)
                 secretDisplay.innerText = playerWords[currentPlayer - 1];
                 
                 toggleBtn.innerText = "إخفاء الكلمة";
@@ -317,7 +308,6 @@
         function nextPlayer() {
             currentPlayer++;
             if (currentPlayer > totalPlayers) {
-                // انتهى الجميع، ننتقل لشاشة النقاش
                 document.getElementById("game-screen").classList.add("hidden");
                 document.getElementById("discussion-screen").classList.remove("hidden");
             } else {
@@ -327,7 +317,7 @@
 
         function startTimer() {
             clearInterval(timerInterval);
-            let timeLeft = 180; // 3 دقائق
+            let timeLeft = 180;
             const timerDisplay = document.getElementById("timer");
             
             timerInterval = setInterval(() => {
