@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة ألعاب الشلة المتكاملة</title>
+    <title>لعبة المخادع - The Imposter</title>
     <style>
         :root {
             --primary-color: #6366f1;
-            --secondary-color: #4f46e5;
+            --primary-hover: #4f46e5;
             --bg-color: #0f172a;
             --card-bg: #1e293b;
             --text-color: #f8fafc;
-            --accent-color: #ec4899;
+            --accent-color: #f43f5e;
         }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
@@ -20,148 +21,237 @@
             margin: 0;
             padding: 20px;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            min-height: 100vh;
         }
-        h1 {
-            color: var(--accent-color);
-            margin-bottom: 5px;
-        }
+
         .container {
-            max-width: 800px;
-            width: 100%;
-            background: var(--card-bg);
-            padding: 25px;
+            background-color: var(--card-bg);
+            padding: 30px;
             border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            margin-top: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
         }
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+
+        h1 {
+            margin-bottom: 25px;
+            color: #818cf8;
+            font-size: 2rem;
         }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background-color: #0f172a;
+            color: var(--text-color);
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
         button {
             background-color: var(--primary-color);
             color: white;
             border: none;
             padding: 12px 20px;
             border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
+            font-size: 1rem;
             font-weight: bold;
-            transition: 0.3s;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-top: 10px;
         }
+
         button:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-2px);
+            background-color: var(--primary-hover);
         }
-        .game-screen {
-            display: none;
-            margin-top: 20px;
+
+        button:active {
+            transform: scale(0.98);
         }
-        .back-btn {
-            background-color: #ef4444;
+
+        .hidden {
+            display: none !important;
+        }
+
+        .secret-box {
+            background-color: #0f172a;
+            border: 2px dashed #475569;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .role-title {
+            font-size: 1.4rem;
             margin-bottom: 15px;
         }
-        .back-btn:hover {
-            background-color: #dc2626;
+
+        .role-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #38bdf8;
+            margin-top: 10px;
         }
-        .box {
-            background: rgba(255,255,255,0.05);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            text-align: center;
-        }
-        input {
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid #475569;
-            background: #0f172a;
-            color: white;
-            width: 80%;
-            margin-bottom: 10px;
+
+        .imposter-text {
+            color: var(--accent-color) !important;
         }
     </style>
 </head>
 <body>
 
-    <h1>🎮 حزمة ألعاب الشلة المتكاملة</h1>
-    <p>كل الألعاب الأصلية والإضافات الجديدة في مكان واحد!</p>
-
     <div class="container">
-        <!-- القائمة الرئيسية -->
-        <div id="main-menu">
-            <h3>اختر اللعبة اللي حابب تلعبها مع الشلة:</h3>
-            <div class="menu-grid">
-                <button onclick="openGame('impostor')">🕵️‍♂️ مين الإمبوستر؟</button>
-                <button onclick="openGame('auction')">⚽ مزاد أساطير الكرة</button>
-                <button onclick="openGame('buhour')">🌊 بحور ولا مبحورش؟</button>
-                <button onclick="openGame('whoIs')">👥 مين الصاحب؟</button>
-                <button onclick="openGame('truthDare')">🔥 أسئلة وعقاب الشلة</button>
-                <button onclick="openGame('emoji')">🧩 تخمين الإيموجي</button>
-                <button onclick="openGame('bomb')">💣 القنبلة الموقوتة</button>
+        <div id="setup-screen">
+            <h1>لعبة المخادع 🕵️‍♂️</h1>
+            
+            <div class="form-group">
+                <label for="num-players">عدد اللاعبين:</label>
+                <select id="num-players">
+                    <option value="3">3 لاعبين</option>
+                    <option value="4" selected>4 لاعبين</option>
+                    <option value="5">5 لاعبين</option>
+                    <option value="6">6 لاعبين</option>
+                    <option value="7">7 لاعبين</option>
+                    <option value="8">8 لاعبين</option>
+                </select>
             </div>
+
+            <div class="form-group">
+                <label for="category">اختر الفئة:</label>
+                <select id="category">
+                    <option value="footballers">لاعبو كرة قدم ⚽</option>
+                    <option value="food">أطعمة ومأكولات 🍕</option>
+                    <option value="actors">ممثلون ومشاهير 🎬</option>
+                    <option value="countries">دول وعواصم 🌍</option>
+                </select>
+            </div>
+
+            <button onclick="startGame()">بدء اللعبة</button>
         </div>
 
-        <!-- شاشات الألعاب الفرعية -->
-        <div id="game-container" class="game-screen">
-            <button class="back-btn" onclick="goHome()">🔙 رجوع للقائمة</button>
-            <div id="game-content"></div>
+        <div id="game-screen" class="hidden">
+            <h2 id="current-player-title">دور اللاعب 1</h2>
+            <p>أعط الهاتف للاعب المذكور واضغط إظهار السر أدناه.</p>
+            
+            <div id="secret-container" class="secret-box hidden">
+                <div class="role-title">الكلمة السرية أو هويتك:</div>
+                <div id="secret-display" class="role-value"></div>
+            </div>
+
+            <button id="toggle-btn" onclick="toggleSecret()">إظهار السر</button>
+            <button id="next-btn" class="hidden" onclick="nextPlayer()">التالي</button>
+        </div>
+
+        <div id="end-screen" class="hidden">
+            <h1>جاهزون للنقاش! 🎯</h1>
+            <p style="font-size: 1.1rem; line-height: 1.6;">تم توزيع الأدوار بنجاح.<br>ابدأوا في طرح الأسئلة على بعضكم البعض لاكتشاف من هو <b>المخادع</b> الذي لا يعرف السر!</p>
+            <button onclick="resetGame()">لعبة جديدة</button>
         </div>
     </div>
 
     <script>
-        function openGame(gameName) {
-            document.getElementById('main-menu').style.display = 'none';
-            document.getElementById('game-container').style.display = 'block';
-            let content = '';
+        // قواعد البيانات الخاصة بالفئات
+        const dataCategories = {
+            footballers: ["محمد صلاح", "ليونيل ميسي", "كريستيانو رونالدو", "كيليان مبابي", "كيفين دي بروين", "إيرلينغ هالاند", "نيمار جونيور", "لوكا مودريتش"],
+            food: ["بيتزا", "برجر", "كبسة", "كشري", "سوشي", "مكرونة بشاميل", "شاورما", "فلافل"],
+            actors: ["عادل إمام", "أحمد حلمي", "كريستيان بيل", "ليوناردو دي كابريو", "ويل سميث", "روبرت داوني جونيور", "منى زكي", "أحمد السقا"],
+            countries: ["مصر", "السعودية", "فرنسا", "البرازيل", "إسبانيا", "إيطاليا", "اليابان", "المغرب"]
+        };
 
-            switch(gameName) {
-                case 'impostor':
-                    content = `<h2>🕵️‍♂️ مين الإمبوستر؟</h2>
-                               <p>اكتشف المتسلل وسط طاقم العمل!</p>
-                               <div class="box"><button onclick="alert('تم توزيع الأدوار! راقب تصرفات أصدقائك.')">بدء الجولة وتوزيع الأدوار</button></div>`;
-                    break;
-                case 'auction':
-                    content = `<h2>⚽ مزاد أساطير الكرة</h2>
-                               <p>تنافس لشراء أفضل نجوم وأساطير المستطيل الأخضر بميزانيتك.</p>
-                               <div class="box"><button onclick="alert('اللاعب المعروض حالياً: رونالدو - ابدأ المزايدة!')">بدء المزاد العشوائي</button></div>`;
-                    break;
-                case 'buhour':
-                    content = `<h2>🌊 بحور ولا مبحورش؟</h2>
-                               <p>اختبر سرعة بديهتك في ذكر الأمثلة والتصنيفات دون تردد.</p>
-                               <div class="box"><button onclick="alert('التصنيف الحالي: بلاد بحرف الـ م! اسرع!')">سحب تصنيف جديد</button></div>`;
-                    break;
-                case 'whoIs':
-                    content = `<h2>👥 مين الصاحب؟</h2>
-                               <p>اعرف رأي الشلة في بعضهم في مواقف كوميدية ومحرجة.</p>
-                               <div class="box"><button onclick="alert('مين أكتر واحد بينسى يشحن موبايله؟')">سؤال جديد للشلة</button></div>`;
-                    break;
-                case 'truthDare':
-                    content = `<h2>🔥 أسئلة وعقاب الشلة</h2>
-                               <p>صراحة مطلقة أو عقاب كوميدي ناري!</p>
-                               <div class="box"><button onclick="alert('السؤال: ايه أغبى موقف عملته وأنت صغير؟ (أو نفذ العقاب)')">اسحب بطاقة صراحة/عقاب</button></div>`;
-                    break;
-                case 'emoji':
-                    content = `<h2>🧩 تخمين الإيموجي</h2>
-                               <p>فك رموز الألغاز والأفلام من خلال الإيموجيز.</p>
-                               <div class="box"><h3>🎬 🦁 👑</h3><button onclick="alert('الإجابة الصحيحة: فيلم الأسد الملك (The Lion King)!')">إظهار الإجابة</button></div>`;
-                    break;
-                case 'bomb':
-                    content = `<h2>💣 القنبلة الموقوتة</h2>
-                               <p>أجب على السؤال ومرر الدور بسرعة قبل انفجار القنبلة!</p>
-                               <div class="box"><button onclick="alert('بدأ العد التنازلي! 10 ثوانٍ لذكر اسم 3 مأكولات تبدأ بحرف الجيم!')">إشعال فتيل القنبلة</button></div>`;
-                    break;
-            }
-            document.getElementById('game-content').innerHTML = content;
+        let totalPlayers = 4;
+        let currentPlayer = 1;
+        let imposterIndex = 1;
+        let secretWord = "";
+        let isSecretShown = false;
+
+        function startGame() {
+            totalPlayers = parseInt(document.getElementById("num-players").value);
+            const selectedCategory = document.getElementById("category").value;
+            
+            // اختيار كلمة عشوائية من الفئة المختارة
+            const wordsList = dataCategories[selectedCategory];
+            secretWord = wordsList[Math.floor(Math.random() * wordsList.length)];
+            
+            // اختيار مخادع عشوائي بين اللاعبين
+            imposterIndex = Math.floor(Math.random() * totalPlayers) + 1;
+
+            currentPlayer = 1;
+            isSecretShown = false;
+
+            // الانتقال لشاشة اللعبة
+            document.getElementById("setup-screen").classList.add("hidden");
+            document.getElementById("game-screen").classList.remove("hidden");
+            
+            updateGameScreen();
         }
 
-        function goHome() {
-            document.getElementById('game-container').style.display = 'none';
-            document.getElementById('main-menu').style.display = 'block';
+        function updateGameScreen() {
+            document.getElementById("current-player-title").innerText = `دور اللاعب رقم ${currentPlayer}`;
+            document.getElementById("secret-container").classList.add("hidden");
+            document.getElementById("toggle-btn").classList.remove("hidden");
+            document.getElementById("next-btn").classList.add("hidden");
+            isSecretShown = false;
+            document.getElementById("toggle-btn").innerText = "إظهار السر";
+        }
+
+        function toggleSecret() {
+            const secretContainer = document.getElementById("secret-container");
+            const secretDisplay = document.getElementById("secret-display");
+            const toggleBtn = document.getElementById("toggle-btn");
+            const nextBtn = document.getElementById("next-btn");
+
+            if (!isSecretShown) {
+                // إظهار السر
+                secretContainer.classList.remove("hidden");
+                if (currentPlayer === imposterIndex) {
+                    secretDisplay.innerText = "انت المخادع! 🤫\nليس لديك كلمة سر، حاول ألا تكشف نفسك.";
+                    secretDisplay.className = "role-value imposter-text";
+                } else {
+                    secretDisplay.innerText = secretWord;
+                    secretDisplay.className = "role-value";
+                }
+                toggleBtn.innerText = "إخفاء السر";
+                nextBtn.classList.remove("hidden");
+                isSecretShown = true;
+            } else {
+                // إخفاء السر مجدداً قبل تمرير الهاتف
+                secretContainer.classList.add("hidden");
+                toggleBtn.innerText = "إظهار السر";
+            }
+        }
+
+        function nextPlayer() {
+            currentPlayer++;
+            if (currentPlayer > totalPlayers) {
+                // انتهى الجميع من معرفة أدوارهم
+                document.getElementById("game-screen").classList.add("hidden");
+                document.getElementById("end-screen").classList.remove("hidden");
+            } else {
+                updateGameScreen();
+            }
+        }
+
+        function resetGame() {
+            document.getElementById("end-screen").classList.add("hidden");
+            document.getElementById("setup-screen").classList.remove("hidden");
         }
     </script>
 </body>
