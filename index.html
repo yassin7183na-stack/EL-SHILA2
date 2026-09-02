@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لعبة المخادع - The Imposter Ultimate</title>
+    <title>لعبة المخادع المصرية - The Egyptian Imposter</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
 
         :root {
-            --primary: #6366f1;
-            --primary-hover: #4f46e5;
-            --secondary: #ec4899;
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
-            --card-bg: rgba(30, 41, 59, 0.75);
-            --card-border: rgba(99, 102, 241, 0.2);
+            --primary: #f59e0b;
+            --primary-hover: #d97706;
+            --secondary: #3b82f6;
+            --bg-gradient: linear-gradient(135deg, #090d16 0%, #1a150c 100%);
+            --card-bg: rgba(20, 24, 33, 0.85);
+            --card-border: rgba(245, 158, 11, 0.25);
             --text: #f8fafc;
             --text-muted: #94a3b8;
-            --accent: #f43f5e;
+            --accent: #ef4444;
             --success: #10b981;
         }
 
@@ -38,8 +38,8 @@
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--card-border);
             padding: 35px;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            border-radius: 26px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
             width: 100%;
             max-width: 500px;
             text-align: center;
@@ -60,7 +60,7 @@
 
         h1 {
             margin-bottom: 5px;
-            background: linear-gradient(135deg, #a855f7, #ec4899);
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-size: 2.3rem;
@@ -82,7 +82,7 @@
             display: block;
             margin-bottom: 6px;
             font-weight: 600;
-            color: #c084fc;
+            color: #fcd34d;
             font-size: 0.95rem;
         }
 
@@ -90,8 +90,8 @@
             width: 100%;
             padding: 14px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background-color: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background-color: rgba(15, 23, 42, 0.85);
             color: var(--text);
             font-size: 1rem;
             font-family: 'Cairo', sans-serif;
@@ -102,7 +102,7 @@
 
         select:focus, input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
         }
 
         .players-inputs-container {
@@ -121,17 +121,17 @@
         }
 
         button {
-            background: linear-gradient(135deg, var(--primary), #4f46e5);
-            color: white;
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            color: #0f172a;
             border: none;
             padding: 15px 20px;
             border-radius: 14px;
             font-size: 1.1rem;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
             width: 100%;
             transition: all 0.2s ease;
-            box-shadow: 0 10px 20px -5px rgba(99, 102, 241, 0.5);
+            box-shadow: 0 10px 20px -5px rgba(245, 158, 11, 0.4);
             margin-top: 10px;
             font-family: 'Cairo', sans-serif;
         }
@@ -150,8 +150,8 @@
         }
 
         .secret-box {
-            background-color: rgba(15, 23, 42, 0.9);
-            border: 2px dashed rgba(168, 85, 247, 0.4);
+            background-color: rgba(15, 23, 42, 0.95);
+            border: 2px dashed rgba(245, 158, 11, 0.5);
             padding: 30px 20px;
             border-radius: 18px;
             margin: 25px 0;
@@ -171,7 +171,7 @@
         .role-value {
             font-size: 2rem;
             font-weight: 900;
-            color: #38bdf8;
+            color: #60a5fa;
             word-break: break-word;
         }
 
@@ -180,7 +180,7 @@
             font-weight: 900;
             color: var(--accent);
             margin: 20px 0;
-            text-shadow: 0 0 20px rgba(244, 63, 94, 0.4);
+            text-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
         }
 
         /* توقيع المطور الفاخر */
@@ -194,7 +194,7 @@
         }
 
         .developer-credit span {
-            color: #ec4899;
+            color: #fbbf24;
             font-weight: 700;
         }
     </style>
@@ -203,8 +203,8 @@
 
     <div class="container">
         <div id="setup-screen">
-            <h1>المخادع 🕵️‍♂️</h1>
-            <p class="subtitle">الجميع لديه كلمات متشابهة، فمن هو صاحب الكلمة المختلفة؟</p>
+            <h1>لعبة المخادع 🇪🇬</h1>
+            <p class="subtitle">الكلمات متشابهة، فمن هو الشخص الذي يملك الكلمة المختلفة ولا يدري؟</p>
             
             <div class="form-group">
                 <label for="num-players">عدد اللاعبين:</label>
@@ -228,16 +228,15 @@
             <div class="form-group">
                 <label for="category">اختر الفئة:</label>
                 <select id="category">
+                    <option value="actors">🎬 ممثلون ومشاهير مصريون</option>
+                    <option value="food">🍲 أكلات مصرية شعبية</option>
+                    <option value="footballers">⚽ لاعبو كرة قدم (عالمي وعربي)</option>
                     <option value="developers">💻 مطورو البرمجيات والتقنية</option>
-                    <option value="footballers">⚽ لاعبو كرة قدم</option>
-                    <option value="food">🍕 أطعمة ومأكولات</option>
-                    <option value="actors">🎬 ممثلون ومشاهير</option>
-                    <option value="countries">🌍 دول وعواصم</option>
-                    <option value="anime">⚡ شخصيات أنمي</option>
+                    <option value="countries">🌍 دول وعواصم العالم</option>
                 </select>
             </div>
 
-            <button onclick="startGame()">ابدأ المعركة الحماسية 🚀</button>
+            <button onclick="startGame()">ابدأ اللعبة 🚀</button>
             
             <div class="developer-credit">
                 تم الإنشاء بواسطة: <span>ياسين فخري</span> ✨
@@ -245,7 +244,7 @@
         </div>
 
         <div id="game-screen" class="hidden">
-            <h2 id="current-player-title" style="color: #c084fc;">دور اللاعب</h2>
+            <h2 id="current-player-title" style="color: #fcd34d;">دور اللاعب</h2>
             <p style="color: var(--text-muted);">أعط الهاتف للشخص المذكور واضغط زر الإظهار:</p>
             
             <div id="secret-container" class="secret-box hidden">
@@ -264,60 +263,86 @@
             <div class="timer-display" id="timer">03:00</div>
             
             <button onclick="startTimer()">بدء المؤقت ⏱️</button>
-            <button style="background: linear-gradient(135deg, #10b981, #059669); margin-top: 10px;" onclick="showReveal()">اكشف الحقيقة 🎭</button>
+            <button style="background: linear-gradient(135deg, #10b981, #059669); color: white; margin-top: 10px;" onclick="showReveal()">اكشف الحقيقة 🎭</button>
         </div>
 
         <div id="reveal-screen" class="hidden">
             <h1 style="color: var(--accent);">انتهت اللعبة! 🚨</h1>
             <div class="secret-box" style="border-color: var(--accent);">
                 <div class="role-title">الكلمة الأصلية للغالبية:</div>
-                <div id="reveal-main-word" style="font-size: 1.4rem; color: #38bdf8; margin-bottom: 12px;"></div>
+                <div id="reveal-main-word" style="font-size: 1.4rem; color: #60a5fa; margin-bottom: 12px;"></div>
                 
                 <div class="role-title" style="color: var(--accent);">اللاعب المخادع كان:</div>
                 <div id="reveal-imposter" style="font-size: 1.6rem; font-weight: 900; color: var(--accent);"></div>
                 <div id="reveal-imposter-word" style="font-size: 1rem; color: #f87171; margin-top: 5px;"></div>
             </div>
-            <button onclick="resetGame()">لعبة جديدة 🔄</button>
+            <button onclick="resetGame()" style="color: white;">لعبة جديدة 🔄</button>
         </div>
     </div>
 
     <script>
-        // قواعد البيانات الضخمة (شاملة فئة المطورين الجديدة وباقي الفئات)
+        // قواعد البيانات (ممثلين وأكلات مصرية 100% + لاعبو كرة قدم عالميون متنوعون)
         const dataCategories = {
-            developers: [
-                ["بيل جيتس", "ستيف جوبز"], ["مارك زوكربيرج", "إيلون ماسك"], ["لينوس تورفالدس", "جيمس جوسلينج"],
-                ["جافاسكريبت (JS)", "بايثون (Python)"], ["سي پلس پلس (++C)", "جافا (Java)"], ["ريأكت (React)", "أنغلار (Angular)"],
-                ["جيت هاب (GitHub)", "ستاتيك أوفرفلو (StackOverflow)"], ["لينكس (Linux)", "ويندوز (Windows)"],
-                ["فيجوال ستوديو كود", "إكلبس"], ["لارافيل (Laravel)", "نود جي إس (Node.js)"]
-            ],
-            footballers: [
-                ["محمد صلاح", "رياض محرز"], ["ليونيل ميسي", "كريستيانو رونالدو"], ["كيليان مبابي", "إيرلينغ هالاند"],
-                ["كيفين دي بروين", "لوكا مودريتش"], ["نيمار جونيور", "فينيسيوس جونيور"], ["كريم بنزيما", "روبرت ليفاندوفسكي"],
-                ["ساديو ماني", "محمد الشناوي"], ["حكيم زياش", "أشرف حكيمي"], ["سالم الدوسري", "فهد المولد"],
-                ["بيدري", "جافي"], ["جود بيلينغهام", "بوكايو ساكا"], ["أنطوان غريزمان", "هاري كين"]
+            actors: [
+                ["عادل إمام", "محمد هنيدي"],
+                ["أحمد حلمي", "أحمد السقا"],
+                ["كريم عبد العزيز", "أحمد عز"],
+                ["السقا", "محمد رمضان"],
+                ["يحيى الفخراني", "محمود عبد العزيز"],
+                ["حسن حسني", "سعيد صالح"],
+                ["أحمد مكي", "بيومي فؤاد"],
+                ["منى زكي", "نيللي كريم"],
+                ["ياسمين عبد العزيز", "مي عز الدين"],
+                ["محمد سعد (اللمبي)", "سعد الصغير"],
+                ["ماجد الكدواني", "بيومي فؤاد"],
+                ["أكرم حسني", "هشام ماجد"]
             ],
             food: [
-                ["بيتزا", "فطير مشلتت"], ["برجر", "شاورما"], ["كبسة", "منسف"],
-                ["كشري", "مكرونة بشاميل"], ["سوشي", "نودلز"], ["حواوشي", "صفيحة"],
-                ["ملوخية", "بامية"], ["محشي ورق عنب", "محشي كرنب"], ["فلافل", "فول مدمس"],
-                ["منقوشة زعتر", "فطاير جبنة"], ["استيك لحم", "دجاج بوبكورن"], ["كنافة", "بسبوسة"]
+                ["كشري", "مكرونة بشاميل"],
+                ["ملوخية", "بامية"],
+                ["حواوشي", "صفيحة لحم"],
+                ["محشي ورق عنب", "محشي كرنب"],
+                ["فلافل (طعمية)", "فول مدمس"],
+                ["فطير مشلتت", "رقاق باللحمة المفرومة"],
+                ["فتة بالخل والثوم", "كبسة عادية"],
+                ["مسقعة بالبشاميل", "صينية بطاطس بالفرن"],
+                ["بصارة", "عدس مغربي"],
+                ["كنافة بالمانجو", "بسبوسة بالقشطة"],
+                ["أم علي", "رز بلبن بالمكسرات"]
             ],
-            actors: [
-                ["عادل إمام", "محمد هنيدي"], ["أحمد حلمي", "أحمد السقا"], ["ليوناردو دي كابريو", "براد بيت"],
-                ["ويل سميث", "روبرت داوني جونيور"], ["منى زكي", "نيللي كريم"], ["كريم عبد العزيز", "أحمد عز"],
-                ["توم كروز", "كيانو ريفز"], ["دواين جونسون", "جيسون ستاثام"], ["جوني ديب", "برادلي كوبر"],
-                ["يحيى الفخراني", "محمود عبد العزيز"], ["حسن حسني", "سعيد صالح"], ["أحمد مكي", "بيومي فؤاد"]
+            footballers: [
+                ["محمد صلاح", "رياض محرز"],
+                ["ليونيل ميسي", "كريستيانو رونالدو"],
+                ["كيليان مبابي", "إيرلينغ هالاند"],
+                ["كيفين دي بروين", "لوكا مودريتش"],
+                ["نيمار جونيور", "فينيسيوس جونيور"],
+                ["كريم بنزيما", "روبرت ليفاندوفسكي"],
+                ["ساديو ماني", "حكيم زياش"],
+                ["أشرف حكيمي", "جواو كانسيلو"],
+                ["بيدري", "جافي"],
+                ["جود بيلينغهام", "بوكايو ساكا"],
+                ["مانويل نوير", "تيبو كورتوا"],
+                ["فيرجيل فان دايك", "روبن دياز"]
+            ],
+            developers: [
+                ["بيل جيتس", "ستيف جوبز"],
+                ["مارك زوكربيرج", "إيلون ماسك"],
+                ["لينوس تورفالدس", "جيمس جوسلينج"],
+                ["جافاسكريبت (JS)", "بايثون (Python)"],
+                ["سي پلس پلس (++C)", "جافا (Java)"],
+                ["ريأكت (React)", "أنغلار (Angular)"],
+                ["جيت هاب (GitHub)", "ستاتيك أوفرفلو (StackOverflow)"],
+                ["لينكس (Linux)", "ويندوز (Windows)"]
             ],
             countries: [
-                ["مصر", "المغرب"], ["السعودية", "الإمارات"], ["فرنسا", "إسبانيا"],
-                ["البرازيل", "الأرجنتين"], ["إيطاليا", "اليونان"], ["اليابان", "الصين"],
-                ["ألمانيا", "بريطانيا"], ["الولايات المتحدة", "كندا"], ["تركيا", "إيران"],
-                ["روسيا", "أوكرانيا"], ["الجزائر", "تونس"], ["لبنان", "سوريا"]
-            ],
-            anime: [
-                ["ناروتو", "ساسكي"], ["لوفي", "زورو"], ["غوكو", "فيجيتا"],
-                ["لايت ياجامي", "إل (L)"], ["كاكاشي", "إيتاتشي"], ["تانجيرو", "نزوكو"],
-                ["باكوغو", "ميدوريا"], ["إرين ييغر", "لِفاي أكرمان"], ["كونان إيدوجاوا", "كايتو كيد"]
+                ["مصر", "المغرب"],
+                ["السعودية", "الإمارات"],
+                ["فرنسا", "إسبانيا"],
+                ["البرازيل", "الأرجنتين"],
+                ["إيطاليا", "اليونان"],
+                ["اليابان", "الصين"],
+                ["ألمانيا", "بريطانيا"],
+                ["الولايات المتحدة", "كندا"]
             ]
         };
 
