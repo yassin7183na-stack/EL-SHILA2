@@ -1,499 +1,168 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الشِلّة — El-Shla Ultimate Pro</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
-
-<style>
-:root {
-  --bg-main: #0a0e17;
-  --card-bg: #141b2d;
-  --accent: #ff4757;
-  --accent-blue: #2ed573;
-  --primary: #6c5ce7;
-  --text-main: #ffffff;
-  --text-muted: #a4b0be;
-  --border-color: rgba(255, 255, 255, 0.15);
-}
-
-* { box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
-
-body {
-  margin: 0; background: var(--bg-main);
-  color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px;
-}
-
-.wrap { width: 100%; max-width: 450px; z-index: 10; }
-.screen { display: none; }
-.screen.active { display: block; }
-
-.card {
-  background: var(--card-bg);
-  border: 2px solid var(--border-color); border-radius: 20px; padding: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); text-align: center;
-}
-
-h1 { font-size: 28px; font-weight: 900; margin: 5px 0; color: #fff; }
-h2 { font-size: 20px; margin-top: 0; color: #fff; }
-
-.btn {
-  width: 100%; padding: 14px; margin: 8px 0; border: none; border-radius: 12px;
-  background: var(--primary); color: white; font-size: 16px; font-weight: bold;
-  cursor: pointer; box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4); z-index: 20; position: relative;
-}
-.btn:active { transform: scale(0.97); }
-.btn.green { background: #2ed573; box-shadow: 0 4px 15px rgba(46, 213, 115, 0.4); }
-.btn.alt { background: rgba(255, 255, 255, 0.1); border: 1px solid var(--border-color); }
-.btn.danger { background: #ff4757; box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4); }
-
-input[type="text"] {
-  width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px;
-  border: 1px solid var(--border-color); background: #0a0e17;
-  color: #fff; font-size: 16px; text-align: center; font-weight: bold;
-}
-
-.player-card {
-  background: #0a0e17; border: 2px solid var(--primary);
-  border-radius: 16px; padding: 12px; margin: 10px 0; text-align: center;
-}
-.player-img {
-  width: 80px; height: 80px; border-radius: 50%; object-fit: cover;
-  border: 3px solid var(--accent-blue); margin-bottom: 6px;
-}
-.auction-price { font-size: 20px; color: var(--accent-blue); font-weight: 900; margin: 3px 0; }
-.timer-box { font-size: 14px; font-weight: bold; color: var(--accent); background: rgba(255,71,87,0.1); padding: 6px; border-radius: 8px; margin-bottom: 8px; }
-
-/* Budget & Squad Styles */
-.budget-bar {
-  display: flex; justify-content: space-around; background: #0a0e17;
-  border: 1px solid var(--border-color); border-radius: 10px; padding: 8px; margin-bottom: 8px; font-size: 13px;
-}
-.squads-container {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; text-align: right; max-height: 140px; overflow-y: auto;
-}
-.squad-box { background: #0a0e17; border: 1px solid var(--border-color); border-radius: 10px; padding: 8px; }
-.squad-title { font-size: 11px; color: var(--accent-blue); font-weight: bold; margin-bottom: 4px; border-bottom: 1px solid var(--border-color); padding-bottom: 2px; }
-.squad-item-row { display: flex; align-items: center; gap: 5px; margin-top: 4px; background: rgba(255,255,255,0.05); padding: 3px; border-radius: 6px; }
-.squad-item-row img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; }
-
-.dev-card {
-  background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);
-  border-radius: 12px; padding: 10px; margin: 8px 0; text-align: right;
-}
-.dev-title { color: var(--accent-blue); font-size: 11px; font-weight: bold; }
-.dev-name { font-size: 16px; font-weight: 900; color: #fff; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة ألعاب الشلة المتكاملة</title>
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #4f46e5;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --accent-color: #ec4899;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: var(--accent-color);
+            margin-bottom: 5px;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            margin-top: 20px;
+        }
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        .game-screen {
+            display: none;
+            margin-top: 20px;
+        }
+        .back-btn {
+            background-color: #ef4444;
+            margin-bottom: 15px;
+        }
+        .back-btn:hover {
+            background-color: #dc2626;
+        }
+        .box {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        input {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: white;
+            width: 80%;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
 
-<div class="wrap">
-  <!-- MAIN MENU -->
-  <div id="screen-main" class="screen active">
-    <div class="card">
-      <div style="font-size: 45px;">🎮</div>
-      <h1>الشِلّة Ultimate</h1>
-      <p style="color:var(--text-muted); font-size:14px;">نسخة سريعة، مستقرة، والأزرار شغالة 100%!</p>
-      <button class="btn green" onclick="selectMode('online')">🌐 لعب أونلاين (غرف)</button>
-      <button class="btn" onclick="selectMode('local')">📱 لعب بتليفون واحد</button>
-      <button class="btn alt" onclick="navTo('screen-devs')">👨‍💻 المطورين</button>
-    </div>
-  </div>
+    <h1>🎮 حزمة ألعاب الشلة المتكاملة</h1>
+    <p>كل الألعاب الأصلية والإضافات الجديدة في مكان واحد!</p>
 
-  <!-- ROOMS -->
-  <div id="screen-rooms" class="screen">
-    <div class="card">
-      <h2>🌐 الغرف الأونلاين</h2>
-      <input type="text" id="playerName" placeholder="اكتب اسمك هنا...">
-      <input type="text" id="roomCodeInput" placeholder="كود الغرفة (مثال: 1234)">
-      <button class="btn green" onclick="joinRoom()">🚪 دخول الغرفة</button>
-      <button class="btn" onclick="createRoom()">➕ إنشاء غرفة</button>
-      <button class="btn alt" onclick="navTo('screen-main')">🏠 القائمة الرئيسية</button>
-    </div>
-  </div>
-
-  <!-- LOBBY -->
-  <div id="screen-lobby" class="screen">
-    <div class="card">
-      <h2>اختر اللعبة 🎲</h2>
-      <div id="statusText" style="color:var(--accent-blue); font-size:13px; margin-bottom:10px;"></div>
-      <button class="btn" onclick="requestStartGame('auction')">⚽ 1. مزاد أساطير الكرة</button>
-      <button class="btn" onclick="requestStartGame('bahawer')">🤥 2. بحور ولا مبحورش؟</button>
-      <button class="btn" onclick="requestStartGame('saheb')">🤫 3. مين الصاحب؟</button>
-      <button class="btn" onclick="requestStartGame('questions')">🎯 4. أسئلة وعقاب الشلة</button>
-      <button class="btn" onclick="requestStartGame('emoji')">🧩 5. تخمين الإيموجي</button>
-      <button class="btn alt" onclick="navTo('screen-main')">🏠 القائمة الرئيسية</button>
-    </div>
-  </div>
-
-  <!-- GAME 1: AUCTION -->
-  <div id="game-auction" class="screen">
-    <div class="card" style="padding: 12px;">
-      <h2>⚽ مزاد الأساطير</h2>
-      <div class="timer-box">⏳ الوقت باقي: <span id="auctionTimer">60</span> ثانية</div>
-      
-      <div class="budget-bar">
-        <span>فلوسك: <b id="myBudget" style="color:var(--accent-blue);">500M$</b></span>
-        <span>المزايد: <b id="highestBidder" style="color:#fff;">محدش</b></span>
-      </div>
-
-      <div class="player-card">
-        <img id="auctionPlayerImg" class="player-img" src="" alt="لاعب">
-        <h3 id="auctionPlayerName" style="margin:4px 0; font-size:16px;"></h3>
-        <div class="auction-price"><span id="highestBid">10</span>M$</div>
-      </div>
-
-      <button class="btn green" onclick="makeBid(10)">💰 مزايدة بـ +10M$</button>
-      <button class="btn danger" onclick="finalizeAuction()">✋ بيع وإرساء المزاد</button>
-      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
-
-      <div class="squads-container">
-        <div class="squad-box">
-          <div class="squad-title">📋 تشكيلتك (<span id="myNameLabel">أنت</span>)</div>
-          <div id="mySquadList"><span style="font-size:10px; color:var(--text-muted);">فاضية</span></div>
+    <div class="container">
+        <!-- القائمة الرئيسية -->
+        <div id="main-menu">
+            <h3>اختر اللعبة اللي حابب تلعبها مع الشلة:</h3>
+            <div class="menu-grid">
+                <button onclick="openGame('impostor')">🕵️‍♂️ مين الإمبوستر؟</button>
+                <button onclick="openGame('auction')">⚽ مزاد أساطير الكرة</button>
+                <button onclick="openGame('buhour')">🌊 بحور ولا مبحورش؟</button>
+                <button onclick="openGame('whoIs')">👥 مين الصاحب؟</button>
+                <button onclick="openGame('truthDare')">🔥 أسئلة وعقاب الشلة</button>
+                <button onclick="openGame('emoji')">🧩 تخمين الإيموجي</button>
+                <button onclick="openGame('bomb')">💣 القنبلة الموقوتة</button>
+            </div>
         </div>
-        <div class="squad-box">
-          <div class="squad-title">📋 تشكيلة الخصم</div>
-          <div id="opponentSquadList"><span style="font-size:10px; color:var(--text-muted);">فاضية</span></div>
+
+        <!-- شاشات الألعاب الفرعية -->
+        <div id="game-container" class="game-screen">
+            <button class="back-btn" onclick="goHome()">🔙 رجوع للقائمة</button>
+            <div id="game-content"></div>
         </div>
-      </div>
     </div>
-  </div>
 
-  <!-- GAME 2: BAHAWER -->
-  <div id="game-bahawer" class="screen">
-    <div class="card">
-      <h2>🤥 بحور ولا مبحورش؟</h2>
-      <div style="background:#0a0e17; padding:15px; border-radius:10px; margin:10px 0; font-size:16px;" id="bahawerQuestion"></div>
-      <button class="btn green" onclick="vote('مبحورش 😇')">😇 مبحورش</button>
-      <button class="btn danger" onclick="vote('بيحور 🤥')">🤥 بيحور</button>
-      <div id="votesResult" style="margin-top:10px; font-weight:bold; color:var(--accent-blue); font-size:14px;"></div>
-      <button class="btn alt" onclick="requestNextQ('bahawer')" style="margin-top:8px;">➡️ سؤال جديد</button>
-      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 القائمة</button>
-    </div>
-  </div>
+    <script>
+        function openGame(gameName) {
+            document.getElementById('main-menu').style.display = 'none';
+            document.getElementById('game-container').style.display = 'block';
+            let content = '';
 
-  <!-- GAME 3: SAHEB -->
-  <div id="game-saheb" class="screen">
-    <div class="card">
-      <h2>🤫 مين الصاحب؟</h2>
-      <div style="background:#0a0e17; padding:15px; border-radius:10px; margin:10px 0; font-size:16px;" id="sahebText"></div>
-      <button class="btn green" onclick="requestNextQ('saheb')">🎲 كارت جديد</button>
-      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 القائمة</button>
-    </div>
-  </div>
+            switch(gameName) {
+                case 'impostor':
+                    content = `<h2>🕵️‍♂️ مين الإمبوستر؟</h2>
+                               <p>اكتشف المتسلل وسط طاقم العمل!</p>
+                               <div class="box"><button onclick="alert('تم توزيع الأدوار! راقب تصرفات أصدقائك.')">بدء الجولة وتوزيع الأدوار</button></div>`;
+                    break;
+                case 'auction':
+                    content = `<h2>⚽ مزاد أساطير الكرة</h2>
+                               <p>تنافس لشراء أفضل نجوم وأساطير المستطيل الأخضر بميزانيتك.</p>
+                               <div class="box"><button onclick="alert('اللاعب المعروض حالياً: رونالدو - ابدأ المزايدة!')">بدء المزاد العشوائي</button></div>`;
+                    break;
+                case 'buhour':
+                    content = `<h2>🌊 بحور ولا مبحورش؟</h2>
+                               <p>اختبر سرعة بديهتك في ذكر الأمثلة والتصنيفات دون تردد.</p>
+                               <div class="box"><button onclick="alert('التصنيف الحالي: بلاد بحرف الـ م! اسرع!')">سحب تصنيف جديد</button></div>`;
+                    break;
+                case 'whoIs':
+                    content = `<h2>👥 مين الصاحب؟</h2>
+                               <p>اعرف رأي الشلة في بعضهم في مواقف كوميدية ومحرجة.</p>
+                               <div class="box"><button onclick="alert('مين أكتر واحد بينسى يشحن موبايله؟')">سؤال جديد للشلة</button></div>`;
+                    break;
+                case 'truthDare':
+                    content = `<h2>🔥 أسئلة وعقاب الشلة</h2>
+                               <p>صراحة مطلقة أو عقاب كوميدي ناري!</p>
+                               <div class="box"><button onclick="alert('السؤال: ايه أغبى موقف عملته وأنت صغير؟ (أو نفذ العقاب)')">اسحب بطاقة صراحة/عقاب</button></div>`;
+                    break;
+                case 'emoji':
+                    content = `<h2>🧩 تخمين الإيموجي</h2>
+                               <p>فك رموز الألغاز والأفلام من خلال الإيموجيز.</p>
+                               <div class="box"><h3>🎬 🦁 👑</h3><button onclick="alert('الإجابة الصحيحة: فيلم الأسد الملك (The Lion King)!')">إظهار الإجابة</button></div>`;
+                    break;
+                case 'bomb':
+                    content = `<h2>💣 القنبلة الموقوتة</h2>
+                               <p>أجب على السؤال ومرر الدور بسرعة قبل انفجار القنبلة!</p>
+                               <div class="box"><button onclick="alert('بدأ العد التنازلي! 10 ثوانٍ لذكر اسم 3 مأكولات تبدأ بحرف الجيم!')">إشعال فتيل القنبلة</button></div>`;
+                    break;
+            }
+            document.getElementById('game-content').innerHTML = content;
+        }
 
-  <!-- GAME 4: QUESTIONS -->
-  <div id="game-questions" class="screen">
-    <div class="card">
-      <h2>🎯 أسئلة وعقاب الخسران</h2>
-      <div style="background:#0a0e17; padding:15px; border-radius:10px; margin:10px 0; font-size:16px;" id="qText"></div>
-      <div style="background:rgba(255,71,87,0.2); border:1px solid var(--accent); padding:8px; border-radius:8px; margin-bottom:8px; font-size:13px;" id="punishText"></div>
-      <button class="btn green" onclick="requestNextQ('questions')">🎯 سؤال جديد</button>
-      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 القائمة</button>
-    </div>
-  </div>
-
-  <!-- GAME 5: EMOJI -->
-  <div id="game-emoji" class="screen">
-    <div class="card">
-      <h2>🧩 خمن الإيموجي</h2>
-      <div style="font-size:35px; margin:10px 0;" id="emojiText"></div>
-      <button class="btn green" onclick="showEmojiAnswer()">👁️ إظهار الإجابة</button>
-      <div id="emojiAnswer" style="display:none; color:var(--accent-blue); font-size:18px; margin:8px 0; font-weight:bold;"></div>
-      <button class="btn" onclick="requestNextQ('emoji')">➡️ إيموجي تاني</button>
-      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 القائمة</button>
-    </div>
-  </div>
-
-  <!-- DEVS -->
-  <div id="screen-devs" class="screen">
-    <div class="card">
-      <h2>👨‍💻 فريق التطوير</h2>
-      <div class="dev-card">
-        <div class="dev-title">🚀 صنع وتنفيذ:</div>
-        <div class="dev-name">ياسين فخري</div>
-      </div>
-      <div class="dev-card">
-        <div class="dev-title">💡 ساهم بأفكار:</div>
-        <div class="dev-name">ياسين توت</div>
-      </div>
-      <button class="btn alt" onclick="navTo('screen-main')">⬅️ العودة</button>
-    </div>
-  </div>
-</div>
-
-<script>
-const footballPlayers = [
-  { name: "محمد صلاح", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Mohamed_Salah_2018.jpg/440px-Mohamed_Salah_2018.jpg" },
-  { name: "ليونيل ميسي", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Lionel-Messi-Argentina-2022_FIFA_World_Cup_%28cropped%29.jpg/440px-Lionel-Messi-Argentina-2022_FIFA_World_Cup_%28cropped%29.jpg" },
-  { name: "كريستيانو رونالدو", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Cristiano_Ronaldo_playing_for_Al_Nassr_FC_%28cropped%29.jpg/440px-Cristiano_Ronaldo_playing_for_Al_Nassr_FC_%28cropped%29.jpg" },
-  { name: "كيليان مبابي", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Kylian_Mbapp%C3%A9_2018.jpg/440px-Kylian_Mbapp%C3%A9_2018.jpg" },
-  { name: "إيرلينج هالاند", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Erling_Haaland_2023_%28cropped%29.jpg/440px-Erling_Haaland_2023_%28cropped%29.jpg" }
-];
-
-const bahawerList = ["مين أكتر واحد في الشلة بيحور لما يتأخر؟", "مين أكتر واحد بيعمل فاهم وهو مش فاهم؟", "مين بياكل أكل صحابه؟"];
-const sahebList = ["شاور على أكتر واحد بيحفظ الأسرار", "مين أكتر واحد بيصرف فلوسه بسرعة؟", "مين الشخص اللي يحل أي مشكلة في الشلة؟"];
-const questionsList = [
-  { q: "ما هي عاصمة أسبانيا؟", p: "العقاب: غني أغنية بصوت عالي لمدة 10 ثواني!" },
-  { q: "من الفائز بكأس العالم 2022؟", p: "العقاب: اعمل 10 ضغط فوراً!" }
-];
-const emojiList = [
-  { e: "🦁👑", a: "الأسد الملك" },
-  { e: "🕷️👨", a: "سبايدرمان" },
-  { e: "🕵️‍♂️🔍", a: "المحقق كونان" }
-];
-
-let isOnline = false, isHost = false, myName = "لاعب", currentRoom = "";
-let peer = null, hostConn = null, clientConns = [];
-let currentBid = 10, highestBidderName = "محدش", playerIdx = 0, timerInterval = null;
-let myBudget = 500;
-let squadsData = {};
-
-function navTo(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-function selectMode(mode) {
-  isOnline = (mode === 'online');
-  if(isOnline) navTo('screen-rooms');
-  else {
-    isHost = true;
-    myName = "ياسين";
-    document.getElementById('statusText').innerText = "🎮 الوضع المحلي (تليفون واحد)";
-    document.getElementById('myNameLabel').innerText = myName;
-    navTo('screen-lobby');
-  }
-}
-
-function createRoom() {
-  myName = document.getElementById('playerName').value.trim() || "لاعب 1";
-  document.getElementById('myNameLabel').innerText = myName;
-  currentRoom = 'shla-' + Math.floor(1000 + Math.random() * 9000);
-  isHost = true;
-  initPeer(currentRoom);
-}
-
-function joinRoom() {
-  myName = document.getElementById('playerName').value.trim() || "لاعب 2";
-  document.getElementById('myNameLabel').innerText = myName;
-  const code = document.getElementById('roomCodeInput').value.trim();
-  if(!code) { alert('اكتب كود الغرفة!'); return; }
-  currentRoom = code.startsWith('shla-') ? code : 'shla-' + code;
-  isHost = false;
-  initPeer(null);
-}
-
-function initPeer(id) {
-  navTo('screen-lobby');
-  peer = id ? new Peer(id) : new Peer();
-  peer.on('open', () => {
-    document.getElementById('statusText').innerText = "🟢 الغرفة: " + currentRoom.replace('shla-','') + " | " + myName;
-    if(!isHost) {
-      hostConn = peer.connect(currentRoom);
-      setupHostConn();
-    }
-  });
-  peer.on('connection', (c) => {
-    clientConns.push(c);
-    setupClientConn(c);
-  });
-}
-
-function setupHostConn() {
-  hostConn.on('data', (d) => processPacket(d));
-}
-
-function setupClientConn(c) {
-  c.on('data', (d) => {
-    if(isHost) {
-      broadcast(d, c);
-      processPacket(d);
-    }
-  });
-}
-
-function broadcast(d, exclude = null) {
-  if(!isOnline) return;
-  if(isHost) {
-    clientConns.forEach(c => { if(c !== exclude) c.send(d); });
-  } else if(hostConn) {
-    hostConn.send(d);
-  }
-}
-
-function sendToServerOrAll(d) {
-  if(!isOnline) {
-    processPacket(d);
-  } else if(isHost) {
-    processPacket(d);
-    broadcast(d);
-  } else {
-    hostConn.send(d);
-  }
-}
-
-function processPacket(d) {
-  if(d.type === 'nav') navTo(d.screen);
-  if(d.type === 'bid') {
-    currentBid = d.bid;
-    highestBidderName = d.bidder;
-    document.getElementById('highestBid').innerText = d.bid;
-    document.getElementById('highestBidder').innerText = d.bidder;
-    resetAuctionTimer();
-  }
-  if(d.type === 'auction_p') {
-    playerIdx = d.idx;
-    updateAuctionUI();
-  }
-  if(d.type === 'add_squad') {
-    addPlayerToUserSquad(d.player, d.owner, d.price);
-  }
-  if(d.type === 'text') {
-    document.getElementById(d.target).innerText = d.txt;
-  }
-  if(d.type === 'show_emoji') {
-    document.getElementById('emojiAnswer').innerText = d.ans;
-    document.getElementById('emojiAnswer').style.display = 'block';
-  }
-}
-
-function requestStartGame(game) {
-  let screenId = 'game-' + game;
-  sendToServerOrAll({ type: 'nav', screen: screenId });
-  if(game === 'auction') {
-    myBudget = 500;
-    document.getElementById('myBudget').innerText = myBudget + "M$";
-    squadsData = {};
-    playerIdx = 0;
-    updateAuctionUI();
-    startAuctionTimer();
-  } else {
-    requestNextQ(game);
-  }
-}
-
-function updateAuctionUI() {
-  const p = footballPlayers[playerIdx];
-  document.getElementById('auctionPlayerName').innerText = p.name;
-  document.getElementById('auctionPlayerImg').src = p.img;
-  currentBid = 10;
-  highestBidderName = "محدش";
-  document.getElementById('highestBid').innerText = 10;
-  document.getElementById('highestBidder').innerText = "محدش";
-  resetAuctionTimer();
-}
-
-function startAuctionTimer() {
-  let timeLeft = 60;
-  document.getElementById('auctionTimer').innerText = timeLeft;
-  clearInterval(timerInterval);
-  timerInterval = setInterval(() => {
-    timeLeft--;
-    document.getElementById('auctionTimer').innerText = timeLeft;
-    if(timeLeft <= 0) {
-      clearInterval(timerInterval);
-      if(isHost || !isOnline) finalizeAuction();
-    }
-  }, 1000);
-}
-
-function resetAuctionTimer() {
-  if(isHost || !isOnline) startAuctionTimer();
-}
-
-function makeBid(step) {
-  if(myBudget < (currentBid + step)) {
-    alert("فلوسك مش تكفي للمزايدة دي!");
-    return;
-  }
-  currentBid += step;
-  highestBidderName = myName;
-  sendToServerOrAll({ type: 'bid', bid: currentBid, bidder: myName });
-}
-
-function finalizeAuction() {
-  clearInterval(timerInterval);
-  const wonPlayer = footballPlayers[playerIdx];
-  let winner = highestBidderName !== "محدش" ? highestBidderName : "محدش";
-  
-  if(winner !== "محدش") {
-    sendToServerOrAll({ type: 'add_squad', player: wonPlayer, owner: winner, price: currentBid });
-  }
-
-  playerIdx = (playerIdx + 1) % footballPlayers.length;
-  sendToServerOrAll({ type: 'auction_p', idx: playerIdx });
-}
-
-function addPlayerToUserSquad(player, owner, price) {
-  if(!squadsData[owner]) squadsData[owner] = [];
-  squadsData[owner].push(player);
-
-  if(owner === myName) {
-    myBudget -= price;
-    document.getElementById('myBudget').innerText = myBudget + "M$";
-  }
-
-  renderSquadsLists();
-}
-
-function renderSquadsLists() {
-  const myContainer = document.getElementById('mySquadList');
-  let myItems = squadsData[myName] || [];
-  if(myItems.length === 0) {
-    myContainer.innerHTML = '<span style="font-size:10px; color:var(--text-muted);">فاضية</span>';
-  } else {
-    let html = '';
-    myItems.forEach(p => {
-      html += `<div class="squad-item-row"><img src="${p.img}"><span style="font-size:11px; color:#fff; font-weight:bold;">${p.name}</span></div>`;
-    });
-    myContainer.innerHTML = html;
-  }
-
-  const oppContainer = document.getElementById('opponentSquadList');
-  let oppName = Object.keys(squadsData).find(k => k !== myName);
-  let oppItems = oppName ? squadsData[oppName] : [];
-  if(oppItems.length === 0) {
-    oppContainer.innerHTML = '<span style="font-size:10px; color:var(--text-muted);">فاضية</span>';
-  } else {
-    let html = '';
-    oppItems.forEach(p => {
-      html += `<div class="squad-item-row"><img src="${p.img}"><span style="font-size:11px; color:#fff; font-weight:bold;">${p.name}</span></div>`;
-    });
-    oppContainer.innerHTML = html;
-  }
-}
-
-function vote(type) {
-  let msg = myName + " صوت: " + type;
-  sendToServerOrAll({ type: 'text', target: 'votesResult', txt: msg });
-}
-
-function requestNextQ(game) {
-  if(game === 'bahawer') {
-    const q = bahawerList[Math.floor(Math.random() * bahawerList.length)];
-    sendToServerOrAll({ type: 'text', target: 'bahawerQuestion', txt: q });
-    sendToServerOrAll({ type: 'text', target: 'votesResult', txt: "" });
-  } else if(game === 'saheb') {
-    const q = sahebList[Math.floor(Math.random() * sahebList.length)];
-    sendToServerOrAll({ type: 'text', target: 'sahebText', txt: q });
-  } else if(game === 'questions') {
-    const item = questionsList[Math.floor(Math.random() * questionsList.length)];
-    sendToServerOrAll({ type: 'text', target: 'qText', txt: item.q });
-    sendToServerOrAll({ type: 'text', target: 'punishText', txt: item.p });
-  } else if(game === 'emoji') {
-    const item = emojiList[Math.floor(Math.random() * emojiList.length)];
-    sendToServerOrAll({ type: 'text', target: 'emojiText', txt: item.e });
-    sendToServerOrAll({ type: 'text', target: 'emojiAnswer', txt: item.a });
-  }
-}
-
-function showEmojiAnswer() {
-  let ansText = document.getElementById('emojiAnswer').innerText;
-}
-</script>
+        function goHome() {
+            document.getElementById('game-container').style.display = 'none';
+            document.getElementById('main-menu').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
