@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لعبة المخادع - The Imposter</title>
+    <title>لعبة المخادع - The Imposter Deluxe</title>
     <style>
         :root {
-            --primary-color: #6366f1;
-            --primary-hover: #4f46e5;
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-color: #f8fafc;
-            --accent-color: #f43f5e;
+            --primary: #8b5cf6;
+            --primary-hover: #7c3aed;
+            --bg: #090d16;
+            --card-bg: #1e1b4b;
+            --card-border: #312e81;
+            --text: #f3f4f6;
+            --accent: #f43f5e;
+            --success: #10b981;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
             margin: 0;
             padding: 20px;
             display: flex;
@@ -28,18 +30,20 @@
 
         .container {
             background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
             padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
             width: 100%;
             max-width: 450px;
             text-align: center;
+            box-sizing: border-box;
         }
 
         h1 {
-            margin-bottom: 25px;
-            color: #818cf8;
-            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #c084fc;
+            font-size: 2.2rem;
         }
 
         .form-group {
@@ -50,41 +54,43 @@
         label {
             display: block;
             margin-bottom: 8px;
-            font-weight: bold;
-            font-size: 0.95rem;
+            font-weight: 600;
+            color: #d8b4fe;
         }
 
-        select, input {
+        select {
             width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #334155;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid #4338ca;
             background-color: #0f172a;
-            color: var(--text-color);
-            font-size: 1rem;
+            color: var(--text);
+            font-size: 1.1rem;
+            outline: none;
             box-sizing: border-box;
         }
 
         button {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 1rem;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
             width: 100%;
-            transition: background-color 0.2s, transform 0.1s;
+            transition: transform 0.1s, opacity 0.2s;
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
             margin-top: 10px;
         }
 
         button:hover {
-            background-color: var(--primary-hover);
+            opacity: 0.9;
         }
 
         button:active {
-            transform: scale(0.98);
+            transform: scale(0.97);
         }
 
         .hidden {
@@ -93,105 +99,180 @@
 
         .secret-box {
             background-color: #0f172a;
-            border: 2px dashed #475569;
-            padding: 25px;
-            border-radius: 12px;
-            margin: 20px 0;
+            border: 2px dashed #4f46e5;
+            padding: 30px 20px;
+            border-radius: 16px;
+            margin: 25px 0;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .role-title {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: #94a3b8;
+            margin-bottom: 10px;
         }
 
         .role-value {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: bold;
             color: #38bdf8;
-            margin-top: 10px;
         }
 
-        .imposter-text {
-            color: var(--accent-color) !important;
+        /* شاشة النقاش والعد التنازلي */
+        .timer-display {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin: 20px 0;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
+        <!-- شاشة الإعدادات -->
         <div id="setup-screen">
-            <h1>لعبة المخادع 🕵️‍♂️</h1>
+            <h1>المخادع 🕵️‍♂️</h1>
+            <p style="color: #94a3b8; margin-bottom: 25px;">الجميع لديه كلمات، لكن أحدهم لديه كلمة مختلفة ولا يدري!</p>
             
             <div class="form-group">
                 <label for="num-players">عدد اللاعبين:</label>
                 <select id="num-players">
-                    <option value="3">3 لاعبين</option>
-                    <option value="4" selected>4 لاعبين</option>
-                    <option value="5">5 لاعبين</option>
-                    <option value="6">6 لاعبين</option>
-                    <option value="7">7 لاعبين</option>
-                    <option value="8">8 لاعبين</option>
+                    <option value="3">3 لاعبين (مخادع واحد)</option>
+                    <option value="4" selected>4 لاعبين (مخادع واحد)</option>
+                    <option value="5">5 لاعبين (مخادع واحد)</option>
+                    <option value="6">6 لاعبين (مخادع واحد)</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label for="category">اختر الفئة:</label>
                 <select id="category">
-                    <option value="footballers">لاعبو كرة قدم ⚽</option>
-                    <option value="food">أطعمة ومأكولات 🍕</option>
-                    <option value="actors">ممثلون ومشاهير 🎬</option>
-                    <option value="countries">دول وعواصم 🌍</option>
+                    <option value="footballers">⚽ لاعبو كرة قدم</option>
+                    <option value="food">🍕 أطعمة ومأكولات</option>
+                    <option value="actors">🎬 ممثلون ومشاهير</option>
+                    <option value="countries">🌍 دول وعواصم</option>
                 </select>
             </div>
 
-            <button onclick="startGame()">بدء اللعبة</button>
+            <button onclick="startGame()">ابدأ المعركة اللعبة</button>
         </div>
 
+        <!-- شاشة تمرير الهاتف / توزيع الكلمات -->
         <div id="game-screen" class="hidden">
-            <h2 id="current-player-title">دور اللاعب 1</h2>
-            <p>أعط الهاتف للاعب المذكور واضغط إظهار السر أدناه.</p>
+            <h2 id="current-player-title" style="color: #c084fc;">دور اللاعب 1</h2>
+            <p style="color: #94a3b8;">أعط الهاتف للاعب المذكور واضغط زر الإظهار:</p>
             
             <div id="secret-container" class="secret-box hidden">
-                <div class="role-title">الكلمة السرية أو هويتك:</div>
+                <div class="role-title">كلمتك السرية هي:</div>
                 <div id="secret-display" class="role-value"></div>
             </div>
 
-            <button id="toggle-btn" onclick="toggleSecret()">إظهار السر</button>
-            <button id="next-btn" class="hidden" onclick="nextPlayer()">التالي</button>
+            <button id="toggle-btn" onclick="toggleSecret()">إظهار الكلمة</button>
+            <button id="next-btn" class="hidden" onclick="nextPlayer()">إخفاء وتمرير للاعب التالي</button>
         </div>
 
-        <div id="end-screen" class="hidden">
-            <h1>جاهزون للنقاش! 🎯</h1>
-            <p style="font-size: 1.1rem; line-height: 1.6;">تم توزيع الأدوار بنجاح.<br>ابدأوا في طرح الأسئلة على بعضكم البعض لاكتشاف من هو <b>المخادع</b> الذي لا يعرف السر!</p>
-            <button onclick="resetGame()">لعبة جديدة</button>
+        <!-- شاشة النقاش والحماس -->
+        <div id="discussion-screen" class="hidden">
+            <h1>وقت النقاش! 🗣️</h1>
+            <p style="color: #94a3b8; line-height: 1.6;">تحدثوا عن كلماتكم، اطرحوا الأسئلة، واكتشفوا من هو الشخص الذي يملك الكلمة المختلفة!</p>
+            
+            <div class="timer-display" id="timer">03:00</div>
+            
+            <button onclick="startTimer()">بدء المؤقت ⏱️</button>
+            <button style="background: linear-gradient(135deg, #10b981, #059669); margin-top: 10px;" onclick="showReveal()">اكشف الحقيقة 🎭</button>
+        </div>
+
+        <!-- شاشة كشف الحقيقة -->
+        <div id="reveal-screen" class="hidden">
+            <h1 style="color: var(--accent);">انتهت اللعبة! 🚨</h1>
+            <div class="secret-box" style="border-color: var(--accent);">
+                <div class="role-title">الكلمة الأصلية للغالبية:</div>
+                <div id="reveal-main-word" style="font-size: 1.6rem; color: #38bdf8; margin-bottom: 15px;"></div>
+                
+                <div class="role-title" style="color: var(--accent);">اللاعب المخادع كان:</div>
+                <div id="reveal-imposter" style="font-size: 1.8rem; font-weight: bold; color: var(--accent);"></div>
+                <div id="reveal-imposter-word" style="font-size: 1.1rem; color: #f87171; margin-top: 5px;"></div>
+            </div>
+            <button onclick="resetGame()">لعبة جديدة 🔄</button>
         </div>
     </div>
 
     <script>
-        // قواعد البيانات الخاصة بالفئات
+        // قاعدة البيانات (تحتوي على أزواج مترابطة أو عناصر للفئات)
         const dataCategories = {
-            footballers: ["محمد صلاح", "ليونيل ميسي", "كريستيانو رونالدو", "كيليان مبابي", "كيفين دي بروين", "إيرلينغ هالاند", "نيمار جونيور", "لوكا مودريتش"],
-            food: ["بيتزا", "برجر", "كبسة", "كشري", "سوشي", "مكرونة بشاميل", "شاورما", "فلافل"],
-            actors: ["عادل إمام", "أحمد حلمي", "كريستيان بيل", "ليوناردو دي كابريو", "ويل سميث", "روبرت داوني جونيور", "منى زكي", "أحمد السقا"],
-            countries: ["مصر", "السعودية", "فرنسا", "البرازيل", "إسبانيا", "إيطاليا", "اليابان", "المغرب"]
+            footballers: [
+                ["محمد صلاح", "رياض محرز"],
+                ["ليونيل ميسي", "كريستيانو رونالدو"],
+                ["كيليان مبابي", "إيرلينغ هالاند"],
+                ["كيفين دي بروين", "لوكا مودريتش"],
+                ["نيمار جونيور", "فينيسيوس جونيور"]
+            ],
+            food: [
+                ["بيتزا", "فطير مشلتت"],
+                ["برجر", "شاورما"],
+                ["كبسة", "منسف"],
+                ["كشري", "مكرونة بشاميل"],
+                ["سوشي", "نودلز"]
+            ],
+            actors: [
+                ["عادل إمام", "محمد هنيدي"],
+                ["أحمد حلمي", "أحمد السقا"],
+                ["ليوناردو دي كابريو", براد بيت],
+                ["ويل سميث", "روبرت داوني جونيور"],
+                ["منى زكي", "نيللي كريم"]
+            ],
+            countries: [
+                ["مصر", "المغرب"],
+                ["السعودية", "الإمارات"],
+                ["فرنسا", "إسبانيا"],
+                ["البرازيل", "الأرجنتين"],
+                ["إيطاليا", "اليونان"]
+            ]
         };
 
         let totalPlayers = 4;
         let currentPlayer = 1;
+        let playerWords = []; // تخزين كلمة كل لاعب
         let imposterIndex = 1;
-        let secretWord = "";
+        let mainWord = "";
+        let imposterWord = "";
         let isSecretShown = false;
+        let timerInterval;
 
         function startGame() {
             totalPlayers = parseInt(document.getElementById("num-players").value);
             const selectedCategory = document.getElementById("category").value;
             
-            // اختيار كلمة عشوائية من الفئة المختارة
-            const wordsList = dataCategories[selectedCategory];
-            secretWord = wordsList[Math.floor(Math.random() * wordsList.length)];
+            // اختيار زوج عشوائي من الفئة
+            const pairsList = dataCategories[selectedCategory];
+            const randomPair = pairsList[Math.floor(Math.random() * pairsList.length)];
             
-            // اختيار مخادع عشوائي بين اللاعبين
+            // تحديد من الكلمة الأساسية ومن الكلمة المختلفة للمخادع
+            if (Math.random() < 0.5) {
+                mainWord = randomPair[0];
+                imposterWord = randomPair[1];
+            } else {
+                mainWord = randomPair[1];
+                imposterWord = randomPair[0];
+            }
+
+            // اختيار من هو المخادع عشوائياً (من 1 إلى عدد اللاعبين)
             imposterIndex = Math.floor(Math.random() * totalPlayers) + 1;
+
+            // توزيع الكلمات على اللاعبين
+            playerWords = [];
+            for (let i = 1; i <= totalPlayers; i++) {
+                if (i === imposterIndex) {
+                    playerWords.push(imposterWord); // المخادع يحصل على الكلمة المختلفة ولا يعلم أنه مخادع
+                } else {
+                    playerWords.push(mainWord); // البقية يحصلون على الكلمة الأساسية
+                }
+            }
 
             currentPlayer = 1;
             isSecretShown = false;
@@ -204,12 +285,13 @@
         }
 
         function updateGameScreen() {
+            document.getElementById("current-player-title.innerText = `دور اللاعب رقم ${currentPlayer}`;
             document.getElementById("current-player-title").innerText = `دور اللاعب رقم ${currentPlayer}`;
             document.getElementById("secret-container").classList.add("hidden");
             document.getElementById("toggle-btn").classList.remove("hidden");
             document.getElementById("next-btn").classList.add("hidden");
             isSecretShown = false;
-            document.getElementById("toggle-btn").innerText = "إظهار السر";
+            document.getElementById("toggle-btn").innerText = "إظهار الكلمة السرية";
         }
 
         function toggleSecret() {
@@ -219,38 +301,61 @@
             const nextBtn = document.getElementById("next-btn");
 
             if (!isSecretShown) {
-                // إظهار السر
                 secretContainer.classList.remove("hidden");
-                if (currentPlayer === imposterIndex) {
-                    secretDisplay.innerText = "انت المخادع! 🤫\nليس لديك كلمة سر، حاول ألا تكشف نفسك.";
-                    secretDisplay.className = "role-value imposter-text";
-                } else {
-                    secretDisplay.innerText = secretWord;
-                    secretDisplay.className = "role-value";
-                }
-                toggleBtn.innerText = "إخفاء السر";
+                // اللاعب يرى الكلمة المخصصة له فقط (دون أي إشارة إلى أنه مخادع)
+                secretDisplay.innerText = playerWords[currentPlayer - 1];
+                
+                toggleBtn.innerText = "إخفاء الكلمة";
                 nextBtn.classList.remove("hidden");
                 isSecretShown = true;
             } else {
-                // إخفاء السر مجدداً قبل تمرير الهاتف
                 secretContainer.classList.add("hidden");
-                toggleBtn.innerText = "إظهار السر";
+                toggleBtn.innerText = "إظهار الكلمة السرية";
             }
         }
 
         function nextPlayer() {
             currentPlayer++;
             if (currentPlayer > totalPlayers) {
-                // انتهى الجميع من معرفة أدوارهم
+                // انتهى الجميع، ننتقل لشاشة النقاش
                 document.getElementById("game-screen").classList.add("hidden");
-                document.getElementById("end-screen").classList.remove("hidden");
+                document.getElementById("discussion-screen").classList.remove("hidden");
             } else {
                 updateGameScreen();
             }
         }
 
+        function startTimer() {
+            clearInterval(timerInterval);
+            let timeLeft = 180; // 3 دقائق
+            const timerDisplay = document.getElementById("timer");
+            
+            timerInterval = setInterval(() => {
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                timerDisplay.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.innerText = "انتهى الوقت! ⏰";
+                }
+                timeLeft--;
+            }, 1000);
+        }
+
+        function showReveal() {
+            clearInterval(timerInterval);
+            document.getElementById("discussion-screen").classList.add("hidden");
+            document.getElementById("reveal-screen").classList.remove("hidden");
+
+            document.getElementById("reveal-main-word").innerText = mainWord;
+            document.getElementById("reveal-imposter").innerText = `اللاعب رقم ${imposterIndex}`;
+            document.getElementById("reveal-imposter-word").innerText = `(كانت كلمته: ${imposterWord})`;
+        }
+
         function resetGame() {
-            document.getElementById("end-screen").classList.add("hidden");
+            clearInterval(timerInterval);
+            document.getElementById("reveal-screen").classList.add("hidden");
             document.getElementById("setup-screen").classList.remove("hidden");
         }
     </script>
