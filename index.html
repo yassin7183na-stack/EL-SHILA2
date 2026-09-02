@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الشِلّة — El-Shla Ultimate</title>
+<title>الشِلّة — El-Shla Ultimate Pro</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
 
@@ -43,7 +43,7 @@ body {
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6); text-align: center;
 }
 
-h1 { font-size: 36px; font-weight: 900; margin: 5px 0; background: linear-gradient(135deg, #fff 0%, #a29bfe 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+h1 { font-size: 32px; font-weight: 900; margin: 5px 0; background: linear-gradient(135deg, #fff 0%, #a29bfe 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 h2 { font-size: 20px; margin-top: 0; color: #fff; }
 
 .btn {
@@ -68,10 +68,16 @@ input[type="text"] {
   border-radius: 20px; padding: 15px; margin: 15px 0; text-align: center;
 }
 .player-img {
-  width: 130px; height: 130px; border-radius: 50%; object-fit: cover;
+  width: 110px; height: 110px; border-radius: 50%; object-fit: cover;
   border: 4px solid var(--accent-blue); box-shadow: 0 0 20px rgba(46, 213, 115, 0.4); margin-bottom: 10px;
 }
-.auction-price { font-size: 24px; color: var(--accent-blue); font-weight: 900; margin: 10px 0; }
+.auction-price { font-size: 24px; color: var(--accent-blue); font-weight: 900; margin: 8px 0; }
+.timer-box { font-size: 16px; font-weight: bold; color: var(--accent); background: rgba(255,71,87,0.1); padding: 8px; border-radius: 10px; margin-bottom: 10px; }
+
+/* Squad Grid */
+.squad-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; max-height: 250px; overflow-y: auto; margin: 15px 0; }
+.squad-item { background: rgba(0,0,0,0.5); border: 1px solid var(--accent-blue); border-radius: 12px; padding: 10px; text-align: center; }
+.squad-item img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
 
 .dev-card {
   background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);
@@ -84,45 +90,40 @@ input[type="text"] {
 <body>
 
 <div class="wrap">
-
   <!-- MAIN MENU -->
   <div id="screen-main" class="screen active">
     <div class="card">
       <div style="font-size: 50px;">🎮</div>
       <h1>مجمع ألعاب الشِلّة</h1>
-      <p style="color:var(--text-muted);">اختر طريقة اللعب المفضلة لجمع الشلة!</p>
-
+      <p style="color:var(--text-muted);">النسخة الكاملة مع المزاد والتشكيلة!</p>
       <button class="btn green" onclick="selectMode('online')">🌐 لعب أونلاين (غرف من بيوتكم)</button>
       <button class="btn" onclick="selectMode('local')">📱 لعب بتليفون واحد (شاشة واحدة)</button>
       <button class="btn alt" onclick="navTo('screen-devs')">👨‍💻 المطورين</button>
     </div>
   </div>
 
-  <!-- MODE: ONLINE ROOMS -->
+  <!-- ROOMS -->
   <div id="screen-rooms" class="screen">
     <div class="card">
       <h2>🌐 نظام الغرف الأونلاين</h2>
       <input type="text" id="playerName" placeholder="اكتب اسمك هنا...">
       <input type="text" id="roomCodeInput" placeholder="كود الغرفة (مثال: 1234)">
-      
       <button class="btn green" onclick="joinRoom()">🚪 دخول الغرفة</button>
       <button class="btn" onclick="createRoom()">➕ إنشاء غرفة جديدة</button>
       <button class="btn alt" onclick="navTo('screen-main')">🏠 القائمة الرئيسية</button>
     </div>
   </div>
 
-  <!-- GAMES LOBBY -->
+  <!-- LOBBY -->
   <div id="screen-lobby" class="screen">
     <div class="card">
       <h2>اختر اللعبة 🎲</h2>
       <div id="statusText" style="color:var(--accent-blue); font-size:14px; margin-bottom:10px;"></div>
-
-      <button class="btn" onclick="startGame('auction')">⚽ 1. مزاد أساطير الكرة (بالصور)</button>
-      <button class="btn" onclick="startGame('bahawer')">🤥 2. بحور ولا مبحورش؟</button>
-      <button class="btn" onclick="startGame('saheb')">🤫 3. مين الصاحب؟ (كشف أسرار)</button>
-      <button class="btn" onclick="startGame('questions')">🎯 4. أسئلة الشلة وعقاب الخسران</button>
-      <button class="btn" onclick="startGame('emoji')">🧩 5. تخمين الإيموجي والقدرات</button>
-      
+      <button class="btn" onclick="requestStartGame('auction')">⚽ 1. مزاد أساطير الكرة</button>
+      <button class="btn" onclick="requestStartGame('bahawer')">🤥 2. بحور ولا مبحورش؟</button>
+      <button class="btn" onclick="requestStartGame('saheb')">🤫 3. مين الصاحب؟</button>
+      <button class="btn" onclick="requestStartGame('questions')">🎯 4. أسئلة الشلة وعقاب الخسران</button>
+      <button class="btn" onclick="requestStartGame('emoji')">🧩 5. تخمين الإيموجي</button>
       <button class="btn alt" onclick="navTo('screen-main')">🏠 القائمة الرئيسية</button>
     </div>
   </div>
@@ -131,15 +132,28 @@ input[type="text"] {
   <div id="game-auction" class="screen">
     <div class="card">
       <h2>⚽ مزاد الأساطير</h2>
+      <div class="timer-box">⏳ الوقت باقي: <span id="auctionTimer">15</span> ثانية</div>
       <div class="player-card">
         <img id="auctionPlayerImg" class="player-img" src="" alt="لاعب">
         <h3 id="auctionPlayerName" style="margin:5px 0;"></h3>
         <div class="auction-price"><span id="highestBid">50</span>M$</div>
-        <div style="font-size:14px; color:var(--text-muted);">المزايد: <b id="highestBidder" style="color:#fff;">بداية المزاد</b></div>
+        <div style="font-size:14px; color:var(--text-muted);">المزايد الحالي: <b id="highestBidder" style="color:#fff;">بداية المزاد</b></div>
       </div>
       <button class="btn green" onclick="makeBid(5)">💰 مزايدة بـ +5M$</button>
-      <button class="btn" onclick="nextAuctionPlayer()">➡️ اللاعب التالي</button>
+      <button class="btn danger" onclick="finalizeAuction()">✋ تنازل (إرساء المزاد)</button>
+      <button class="btn alt" onclick="navTo('screen-squad')">📋 عرض تشكيلة الفريق</button>
       <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
+    </div>
+  </div>
+
+  <!-- SQUAD SCREEN -->
+  <div id="screen-squad" class="screen">
+    <div class="card">
+      <h2>📋 تشكيلة الفريق المجمعة</h2>
+      <div id="squadContainer" class="squad-grid">
+        <p style="color:var(--text-muted); grid-column: span 2;">لسه مفيش لاعبين انضموا للتشكيلة!</p>
+      </div>
+      <button class="btn alt" onclick="navTo('game-auction')">🔙 العودة للمزاد</button>
     </div>
   </div>
 
@@ -151,7 +165,7 @@ input[type="text"] {
       <button class="btn green" onclick="vote('مبحورش 😇')">😇 مبحورش</button>
       <button class="btn danger" onclick="vote('بيحور 🤥')">🤥 بيحور</button>
       <div id="votesResult" style="margin-top:15px; font-weight:bold; color:var(--accent-blue);"></div>
-      <button class="btn alt" onclick="nextQuestion('bahawer')" style="margin-top:10px;">➡️ سؤال جديد</button>
+      <button class="btn alt" onclick="requestNextQ('bahawer')" style="margin-top:10px;">➡️ سؤال جديد</button>
       <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
     </div>
   </div>
@@ -161,19 +175,19 @@ input[type="text"] {
     <div class="card">
       <h2>🤫 مين الصاحب؟</h2>
       <div style="background:rgba(0,0,0,0.5); padding:20px; border-radius:16px; margin:15px 0; font-size:18px;" id="sahebText"></div>
-      <button class="btn green" onclick="nextQuestion('saheb')">🎲 كارت جديد</button>
+      <button class="btn green" onclick="requestNextQ('saheb')">🎲 كارت جديد</button>
       <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
     </div>
   </div>
 
-  <!-- GAME 4: QUESTIONS & PUNISHMENT -->
+  <!-- GAME 4: QUESTIONS -->
   <div id="game-questions" class="screen">
     <div class="card">
       <h2>🎯 أسئلة وعقاب الخسران</h2>
       <div style="background:rgba(0,0,0,0.5); padding:20px; border-radius:16px; margin:15px 0; font-size:18px;" id="qText"></div>
       <div style="background:rgba(255,71,87,0.2); border:1px solid var(--accent); padding:10px; border-radius:12px; margin-bottom:10px;" id="punishText"></div>
-      <button class="btn green" onclick="nextQuestion('questions')">🎯 سؤال وعقاب جديد</button>
-      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
+      <button class="btn green" onclick="requestNextQ('questions')">🎯 سؤال وعقاب جديد</button>
+      <button class="btn alt" onclick="navT('screen-lobby')">🔙 قائمة الألعاب</button>
     </div>
   </div>
 
@@ -182,14 +196,14 @@ input[type="text"] {
     <div class="card">
       <h2>🧩 خمن الإيموجي</h2>
       <div style="font-size:40px; margin:15px 0;" id="emojiText"></div>
-      <button class="btn green" id="showAnswerBtn" onclick="document.getElementById('emojiAnswer').style.display='block'">👁️ إظهار الإجابة</button>
+      <button class="btn green" onclick="showEmojiAnswer()">👁️ إظهار الإجابة للكل</button>
       <div id="emojiAnswer" style="display:none; color:var(--accent-blue); font-size:20px; margin:10px 0; font-weight:bold;"></div>
-      <button class="btn" onclick="nextQuestion('emoji')">➡️ خمن إيموجي تاني</button>
+      <button class="btn" onclick="requestNextQ('emoji')">➡️ خمن إيموجي تاني</button>
       <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
     </div>
   </div>
 
-  <!-- DEVELOPERS -->
+  <!-- DEVS -->
   <div id="screen-devs" class="screen">
     <div class="card">
       <h2>👨‍💻 فريق التطوير</h2>
@@ -204,7 +218,6 @@ input[type="text"] {
       <button class="btn alt" onclick="navTo('screen-main')">⬅️ العودة</button>
     </div>
   </div>
-
 </div>
 
 <script>
@@ -228,11 +241,10 @@ const emojiList = [
   { e: "🕵️‍♂️🔍", a: "المحقق كونان" }
 ];
 
-let isOnline = false;
-let myName = "لاعب";
-let currentRoom = "";
-let peer = null, conn = null, connections = [];
-let currentBid = 50, playerIdx = 0;
+let isOnline = false, isHost = false, myName = "لاعب", currentRoom = "";
+let peer = null, hostConn = null, clientConns = [];
+let currentBid = 50, highestBidderName = "بداية المزاد", playerIdx = 0, timerInterval = null;
+let teamSquad = [];
 
 function navTo(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -243,6 +255,7 @@ function selectMode(mode) {
   isOnline = (mode === 'online');
   if(isOnline) navTo('screen-rooms');
   else {
+    isHost = true;
     document.getElementById('statusText').innerText = "🎮 الوضع المحلي (تليفون واحد)";
     navTo('screen-lobby');
   }
@@ -251,7 +264,8 @@ function selectMode(mode) {
 function createRoom() {
   myName = document.getElementById('playerName').value.trim() || "لاعب 1";
   currentRoom = 'shla-' + Math.floor(1000 + Math.random() * 9000);
-  initPeer(currentRoom, true);
+  isHost = true;
+  initPeer(currentRoom);
 }
 
 function joinRoom() {
@@ -259,98 +273,197 @@ function joinRoom() {
   const code = document.getElementById('roomCodeInput').value.trim();
   if(!code) { alert('اكتب كود الغرفة!'); return; }
   currentRoom = code.startsWith('shla-') ? code : 'shla-' + code;
-  initPeer(null, false);
+  isHost = false;
+  initPeer(null);
 }
 
-function initPeer(id, isHost) {
+function initPeer(id) {
   navTo('screen-lobby');
   peer = id ? new Peer(id) : new Peer();
   peer.on('open', () => {
-    document.getElementById('statusText').innerText = "🟢 الغرفة: " + currentRoom.replace('shla-','') + " | المتصل: " + myName;
-    if(!isHost) { conn = peer.connect(currentRoom); setupConn(conn); }
+    document.getElementById('statusText').innerText = "🟢 الغرفة: " + currentRoom.replace('shla-','') + " | " + myName;
+    if(!isHost) {
+      hostConn = peer.connect(currentRoom);
+      setupHostConn();
+    }
   });
-  peer.on('connection', (c) => { connections.push(c); setupConn(c); });
+  peer.on('connection', (c) => {
+    clientConns.push(c);
+    setupClientConn(c);
+  });
 }
 
-function setupConn(c) {
-  c.on('data', (d) => handleNetData(d));
+function setupHostConn() {
+  hostConn.on('data', (d) => processPacket(d));
 }
 
-function broadcast(d) {
+function setupClientConn(c) {
+  c.on('data', (d) => {
+    if(isHost) {
+      broadcast(d, c);
+      processPacket(d);
+    }
+  });
+}
+
+function broadcast(d, exclude = null) {
   if(!isOnline) return;
-  if(conn) conn.send(d);
-  connections.forEach(c => c.send(d));
+  if(isHost) {
+    clientConns.forEach(c => { if(c !== exclude) c.send(d); });
+  } else if(hostConn) {
+    hostConn.send(d);
+  }
 }
 
-function handleNetData(d) {
+function sendToServerOrAll(d) {
+  if(!isOnline) {
+    processPacket(d);
+  } else if(isHost) {
+    processPacket(d);
+    broadcast(d);
+  } else {
+    hostConn.send(d);
+  }
+}
+
+function processPacket(d) {
   if(d.type === 'nav') navTo(d.screen);
   if(d.type === 'bid') {
     currentBid = d.bid;
+    highestBidderName = d.bidder;
     document.getElementById('highestBid').innerText = d.bid;
     document.getElementById('highestBidder').innerText = d.bidder;
+    resetAuctionTimer();
   }
-  if(d.type === 'auction_p') setAuctionPlayer(d.idx);
-  if(d.type === 'text') document.getElementById(d.target).innerText = d.txt;
+  if(d.type === 'auction_p') {
+    playerIdx = d.idx;
+    updateAuctionUI();
+  }
+  if(d.type === 'add_squad') {
+    addPlayerToSquadLocally(d.player, d.owner);
+  }
+  if(d.type === 'text') {
+    document.getElementById(d.target).innerText = d.txt;
+  }
+  if(d.type === 'show_emoji') {
+    document.getElementById('emojiAnswer').innerText = d.ans;
+    document.getElementById('emojiAnswer').style.display = 'block';
+  }
 }
 
-function startGame(game) {
-  navTo('game-' + game);
-  broadcast({ type: 'nav', screen: 'game-' + game });
-  if(game === 'auction') setAuctionPlayer(0);
-  else nextQuestion(game);
+function requestStartGame(game) {
+  let screenId = 'game-' + game;
+  sendToServerOrAll({ type: 'nav', screen: screenId });
+  if(game === 'auction') {
+    playerIdx = 0;
+    updateAuctionUI();
+    startAuctionTimer();
+  } else {
+    requestNextQ(game);
+  }
 }
 
-function setAuctionPlayer(idx) {
-  playerIdx = idx;
-  const p = footballPlayers[idx];
+function updateAuctionUI() {
+  const p = footballPlayers[playerIdx];
   document.getElementById('auctionPlayerName').innerText = p.name;
   document.getElementById('auctionPlayerImg').src = p.img;
   currentBid = 50;
+  highestBidderName = "بداية المزاد";
   document.getElementById('highestBid').innerText = 50;
   document.getElementById('highestBidder').innerText = "بداية المزاد";
+  resetAuctionTimer();
+}
+
+function startAuctionTimer() {
+  let timeLeft = 15;
+  document.getElementById('auctionTimer').innerText = timeLeft;
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    document.getElementById('auctionTimer').innerText = timeLeft;
+    if(timeLeft <= 0) {
+      clearInterval(timerInterval);
+      if(isHost || !isOnline) finalizeAuction();
+    }
+  }, 1000);
+}
+
+function resetAuctionTimer() {
+  if(isHost || !isOnline) startAuctionTimer();
 }
 
 function makeBid(step) {
   currentBid += step;
-  document.getElementById('highestBid').innerText = currentBid;
-  document.getElementById('highestBidder').innerText = myName;
-  broadcast({ type: 'bid', bid: currentBid, bidder: myName });
+  highestBidderName = myName;
+  sendToServerOrAll({ type: 'bid', bid: currentBid, bidder: myName });
 }
 
-function nextAuctionPlayer() {
-  const nextIdx = (playerIdx + 1) % footballPlayers.length;
-  setAuctionPlayer(nextIdx);
-  broadcast({ type: 'auction_p', idx: nextIdx });
+function finalizeAuction() {
+  clearInterval(timerInterval);
+  const wonPlayer = footballPlayers[playerIdx];
+  let winner = highestBidderName !== "بداية المزاد" ? highestBidderName : "محدش زايد";
+  
+  alert(" انتهى المزاد! اللاعب " + wonPlayer.name + " من نصيب: " + winner + " بسعر " + currentBid + "M$");
+  
+  // Add to squad
+  sendToServerOrAll({ type: 'add_squad', player: wonPlayer, owner: winner });
+
+  // Move to next player automatically
+  playerIdx = (playerIdx + 1) % footballPlayers.length;
+  sendToServerOrAll({ type: 'auction_p', idx: playerIdx });
+}
+
+function addPlayerToSquadLocally(player, owner) {
+  teamSquad.push({ player, owner });
+  renderSquad();
+}
+
+function renderSquad() {
+  const container = document.getElementById('squadContainer');
+  if(teamSquad.length === 0) {
+    container.innerHTML = '<p style="color:var(--text-muted); grid-column: span 2;">لسه مفيش لاعبين انضموا للتشكيلة!</p>';
+    return;
+  }
+  let html = '';
+  teamSquad.forEach(item => {
+    html += `
+      <div class="squad-item">
+        <img src="${item.player.img}" alt="لاعب">
+        <div style="font-weight:bold; font-size:14px; margin-top:5px; color:#fff;">${item.player.name}</div>
+        <div style="font-size:11px; color:var(--accent-blue);">المالك: ${item.owner}</div>
+      </div>
+    `;
+  });
+  container.innerHTML = html;
 }
 
 function vote(type) {
-  document.getElementById('votesResult').innerText = myName + " صوت: " + type;
-  broadcast({ type: 'text', target: 'votesResult', txt: myName + " صوت: " + type });
+  let msg = myName + " صوت: " + type;
+  sendToServerOrAll({ type: 'text', target: 'votesResult', txt: msg });
 }
 
-function nextQuestion(game) {
+function requestNextQ(game) {
   if(game === 'bahawer') {
     const q = bahawerList[Math.floor(Math.random() * bahawerList.length)];
-    document.getElementById('bahawerQuestion').innerText = q;
-    document.getElementById('votesResult').innerText = "";
-    broadcast({ type: 'text', target: 'bahawerQuestion', txt: q });
-  }
-  if(game === 'saheb') {
+    sendToServerOrAll({ type: 'text', target: 'bahawerQuestion', txt: q });
+    sendToServerOrAll({ type: 'text', target: 'votesResult', txt: "" });
+  } else if(game === 'saheb') {
     const q = sahebList[Math.floor(Math.random() * sahebList.length)];
-    document.getElementById('sahebText').innerText = q;
-    broadcast({ type: 'text', target: 'sahebText', txt: q });
-  }
-  if(game === 'questions') {
+    sendToServerOrAll({ type: 'text', target: 'sahebText', txt: q });
+  } else if(game === 'questions') {
     const item = questionsList[Math.floor(Math.random() * questionsList.length)];
-    document.getElementById('qText').innerText = item.q;
-    document.getElementById('punishText').innerText = item.p;
-  }
-  if(game === 'emoji') {
+    sendToServerOrAll({ type: 'text', target: 'qText', txt: item.q });
+    sendToServerOrAll({ type: 'text', target: 'punishText', txt: item.p });
+  } else if(game === 'emoji') {
     const item = emojiList[Math.floor(Math.random() * emojiList.length)];
-    document.getElementById('emojiText').innerText = item.e;
-    document.getElementById('emojiAnswer').innerText = item.a;
-    document.getElementById('emojiAnswer').style.display = 'none';
+    sendToServerOrAll({ type: 'text', target: 'emojiText', txt: item.e });
+    sendToServerOrAll({ type: 'text', target: 'emojiAnswer', txt: item.a });
   }
+}
+
+function showEmojiAnswer() {
+  let ansText = document.getElementById('emojiAnswer').innerText;
+  sendToServerOrAll({ type: 'show_emoji', ans: ansText });
 }
 </script>
 </body>
