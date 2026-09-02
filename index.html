@@ -10,89 +10,81 @@
 <style>
 :root {
   --bg-main: #0a0e17;
-  --card-bg: rgba(20, 27, 45, 0.95);
+  --card-bg: #141b2d;
   --accent: #ff4757;
   --accent-blue: #2ed573;
   --primary: #6c5ce7;
   --text-main: #ffffff;
   --text-muted: #a4b0be;
-  --border-color: rgba(255, 255, 255, 0.12);
+  --border-color: rgba(255, 255, 255, 0.15);
 }
 
-* { box-sizing: border-box; font-family: 'Cairo', sans-serif; user-select: none; }
+* { box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; }
 
 body {
   margin: 0; background: var(--bg-main);
-  background-image: radial-gradient(at 0% 0%, rgba(108, 92, 231, 0.25) 0px, transparent 50%),
-                    radial-gradient(at 100% 100%, rgba(255, 71, 87, 0.2) 0px, transparent 50%);
-  color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px;
+  color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 15px;
 }
 
-.wrap { width: 100%; max-width: 500px; }
-.screen { display: none; animation: fadeIn 0.3s ease-in-out; }
+.wrap { width: 100%; max-width: 450px; z-index: 10; }
+.screen { display: none; }
 .screen.active { display: block; }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 .card {
-  background: var(--card-bg); backdrop-filter: blur(16px);
-  border: 1px solid var(--border-color); border-radius: 24px; padding: 20px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6); text-align: center;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color); border-radius: 20px; padding: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); text-align: center;
 }
 
-h1 { font-size: 32px; font-weight: 900; margin: 5px 0; background: linear-gradient(135deg, #fff 0%, #a29bfe 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+h1 { font-size: 28px; font-weight: 900; margin: 5px 0; color: #fff; }
 h2 { font-size: 20px; margin-top: 0; color: #fff; }
 
 .btn {
-  width: 100%; padding: 12px; margin: 6px 0; border: 0; border-radius: 16px;
-  background: linear-gradient(135deg, #6c5ce7 0%, #4834d4 100%);
-  color: white; font-size: 15px; font-weight: 800; cursor: pointer;
-  box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4); transition: 0.2s;
+  width: 100%; padding: 14px; margin: 8px 0; border: none; border-radius: 12px;
+  background: var(--primary); color: white; font-size: 16px; font-weight: bold;
+  cursor: pointer; box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4); z-index: 20; position: relative;
 }
-.btn:active { transform: scale(0.96); }
-.btn.green { background: linear-gradient(135deg, #2ed573 0%, #26af5f 100%); box-shadow: 0 8px 20px rgba(46, 213, 115, 0.3); }
-.btn.alt { background: rgba(255, 255, 255, 0.08); border: 1px solid var(--border-color); box-shadow: none; }
-.btn.danger { background: linear-gradient(135deg, #ff4757 0%, #ff6b81 100%); }
+.btn:active { transform: scale(0.97); }
+.btn.green { background: #2ed573; box-shadow: 0 4px 15px rgba(46, 213, 115, 0.4); }
+.btn.alt { background: rgba(255, 255, 255, 0.1); border: 1px solid var(--border-color); }
+.btn.danger { background: #ff4757; box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4); }
 
 input[type="text"] {
-  width: 100%; padding: 14px; margin: 8px 0; border-radius: 12px;
-  border: 1px solid var(--border-color); background: rgba(0,0,0,0.4);
+  width: 100%; padding: 12px; margin: 8px 0; border-radius: 10px;
+  border: 1px solid var(--border-color); background: #0a0e17;
   color: #fff; font-size: 16px; text-align: center; font-weight: bold;
 }
 
 .player-card {
-  background: rgba(0, 0, 0, 0.4); border: 2px solid var(--primary);
-  border-radius: 20px; padding: 12px; margin: 10px 0; text-align: center;
+  background: #0a0e17; border: 2px solid var(--primary);
+  border-radius: 16px; padding: 12px; margin: 10px 0; text-align: center;
 }
 .player-img {
-  width: 90px; height: 90px; border-radius: 50%; object-fit: cover;
-  border: 3px solid var(--accent-blue); box-shadow: 0 0 15px rgba(46, 213, 115, 0.4); margin-bottom: 6px;
+  width: 80px; height: 80px; border-radius: 50%; object-fit: cover;
+  border: 3px solid var(--accent-blue); margin-bottom: 6px;
 }
 .auction-price { font-size: 20px; color: var(--accent-blue); font-weight: 900; margin: 3px 0; }
-.timer-box { font-size: 14px; font-weight: bold; color: var(--accent); background: rgba(255,71,87,0.1); padding: 5px; border-radius: 10px; margin-bottom: 6px; }
+.timer-box { font-size: 14px; font-weight: bold; color: var(--accent); background: rgba(255,71,87,0.1); padding: 6px; border-radius: 8px; margin-bottom: 8px; }
 
 /* Budget & Squad Styles */
 .budget-bar {
-  display: flex; justify-content: space-around; background: rgba(0,0,0,0.4);
-  border: 1px solid var(--border-color); border-radius: 12px; padding: 8px; margin-bottom: 10px; font-size: 13px;
+  display: flex; justify-content: space-around; background: #0a0e17;
+  border: 1px solid var(--border-color); border-radius: 10px; padding: 8px; margin-bottom: 8px; font-size: 13px;
 }
 .squads-container {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; text-align: right; max-height: 150px; overflow-y: auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; text-align: right; max-height: 140px; overflow-y: auto;
 }
-.squad-box { background: rgba(0,0,0,0.4); border: 1px solid var(--border-color); border-radius: 12px; padding: 8px; }
+.squad-box { background: #0a0e17; border: 1px solid var(--border-color); border-radius: 10px; padding: 8px; }
 .squad-title { font-size: 11px; color: var(--accent-blue); font-weight: bold; margin-bottom: 4px; border-bottom: 1px solid var(--border-color); padding-bottom: 2px; }
 .squad-item-row { display: flex; align-items: center; gap: 5px; margin-top: 4px; background: rgba(255,255,255,0.05); padding: 3px; border-radius: 6px; }
-.squad-item-row img { width: 25px; height: 25px; border-radius: 50%; object-fit: cover; }
+.squad-item-row img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; }
 
 .dev-card {
   background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);
-  border-radius: 16px; padding: 12px; margin: 10px 0; text-align: right;
+  border-radius: 12px; padding: 10px; margin: 8px 0; text-align: right;
 }
-.dev-title { color: var(--accent-blue); font-size: 12px; font-weight: bold; }
-.dev-name { font-size: 18px; font-weight: 900; color: #fff; }
+.dev-title { color: var(--accent-blue); font-size: 11px; font-weight: bold; }
+.dev-name { font-size: 16px; font-weight: 900; color: #fff; }
 </style>
 </head>
 <body>
@@ -101,11 +93,11 @@ input[type="text"] {
   <!-- MAIN MENU -->
   <div id="screen-main" class="screen active">
     <div class="card">
-      <div style="font-size: 50px;">🎮</div>
-      <h1>مجمع ألعاب الشِلّة</h1>
-      <p style="color:var(--text-muted);">النسخة المحدثة والمضبوطة بالكامل!</p>
-      <button class="btn green" onclick="selectMode('online')">🌐 لعب أونلاين (غرف من بيوتكم)</button>
-      <button class="btn" onclick="selectMode('local')">📱 لعب بتليفون واحد (شاشة واحدة)</button>
+      <div style="font-size: 45px;">🎮</div>
+      <h1>الشِلّة Ultimate</h1>
+      <p style="color:var(--text-muted); font-size:14px;">نسخة سريعة، مستقرة، والأزرار شغالة 100%!</p>
+      <button class="btn green" onclick="selectMode('online')">🌐 لعب أونلاين (غرف)</button>
+      <button class="btn" onclick="selectMode('local')">📱 لعب بتليفون واحد</button>
       <button class="btn alt" onclick="navTo('screen-devs')">👨‍💻 المطورين</button>
     </div>
   </div>
@@ -113,11 +105,11 @@ input[type="text"] {
   <!-- ROOMS -->
   <div id="screen-rooms" class="screen">
     <div class="card">
-      <h2>🌐 نظام الغرف الأونلاين</h2>
+      <h2>🌐 الغرف الأونلاين</h2>
       <input type="text" id="playerName" placeholder="اكتب اسمك هنا...">
       <input type="text" id="roomCodeInput" placeholder="كود الغرفة (مثال: 1234)">
       <button class="btn green" onclick="joinRoom()">🚪 دخول الغرفة</button>
-      <button class="btn" onclick="createRoom()">➕ إنشاء غرفة جديدة</button>
+      <button class="btn" onclick="createRoom()">➕ إنشاء غرفة</button>
       <button class="btn alt" onclick="navTo('screen-main')">🏠 القائمة الرئيسية</button>
     </div>
   </div>
@@ -126,11 +118,11 @@ input[type="text"] {
   <div id="screen-lobby" class="screen">
     <div class="card">
       <h2>اختر اللعبة 🎲</h2>
-      <div id="statusText" style="color:var(--accent-blue); font-size:14px; margin-bottom:10px;"></div>
+      <div id="statusText" style="color:var(--accent-blue); font-size:13px; margin-bottom:10px;"></div>
       <button class="btn" onclick="requestStartGame('auction')">⚽ 1. مزاد أساطير الكرة</button>
       <button class="btn" onclick="requestStartGame('bahawer')">🤥 2. بحور ولا مبحورش؟</button>
       <button class="btn" onclick="requestStartGame('saheb')">🤫 3. مين الصاحب؟</button>
-      <button class="btn" onclick="requestStartGame('questions')">🎯 4. أسئلة الشلة وعقاب الخسران</button>
+      <button class="btn" onclick="requestStartGame('questions')">🎯 4. أسئلة وعقاب الشلة</button>
       <button class="btn" onclick="requestStartGame('emoji')">🧩 5. تخمين الإيموجي</button>
       <button class="btn alt" onclick="navTo('screen-main')">🏠 القائمة الرئيسية</button>
     </div>
@@ -138,19 +130,18 @@ input[type="text"] {
 
   <!-- GAME 1: AUCTION -->
   <div id="game-auction" class="screen">
-    <div class="card" style="padding: 15px;">
+    <div class="card" style="padding: 12px;">
       <h2>⚽ مزاد الأساطير</h2>
       <div class="timer-box">⏳ الوقت باقي: <span id="auctionTimer">60</span> ثانية</div>
       
-      <!-- Budget Bar -->
       <div class="budget-bar">
         <span>فلوسك: <b id="myBudget" style="color:var(--accent-blue);">500M$</b></span>
-        <span>أعلى مزايد: <b id="highestBidder" style="color:#fff;">محدش</b></span>
+        <span>المزايد: <b id="highestBidder" style="color:#fff;">محدش</b></span>
       </div>
 
       <div class="player-card">
         <img id="auctionPlayerImg" class="player-img" src="" alt="لاعب">
-        <h3 id="auctionPlayerName" style="margin:4px 0;"></h3>
+        <h3 id="auctionPlayerName" style="margin:4px 0; font-size:16px;"></h3>
         <div class="auction-price"><span id="highestBid">10</span>M$</div>
       </div>
 
@@ -158,7 +149,6 @@ input[type="text"] {
       <button class="btn danger" onclick="finalizeAuction()">✋ بيع وإرساء المزاد</button>
       <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
 
-      <!-- Separate Squads Section -->
       <div class="squads-container">
         <div class="squad-box">
           <div class="squad-title">📋 تشكيلتك (<span id="myNameLabel">أنت</span>)</div>
@@ -176,12 +166,12 @@ input[type="text"] {
   <div id="game-bahawer" class="screen">
     <div class="card">
       <h2>🤥 بحور ولا مبحورش؟</h2>
-      <div style="background:rgba(0,0,0,0.5); padding:20px; border-radius:16px; margin:15px 0; font-size:18px;" id="bahawerQuestion"></div>
+      <div style="background:#0a0e17; padding:15px; border-radius:10px; margin:10px 0; font-size:16px;" id="bahawerQuestion"></div>
       <button class="btn green" onclick="vote('مبحورش 😇')">😇 مبحورش</button>
       <button class="btn danger" onclick="vote('بيحور 🤥')">🤥 بيحور</button>
-      <div id="votesResult" style="margin-top:15px; font-weight:bold; color:var(--accent-blue);"></div>
-      <button class="btn alt" onclick="requestNextQ('bahawer')" style="margin-top:10px;">➡️ سؤال جديد</button>
-      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
+      <div id="votesResult" style="margin-top:10px; font-weight:bold; color:var(--accent-blue); font-size:14px;"></div>
+      <button class="btn alt" onclick="requestNextQ('bahawer')" style="margin-top:8px;">➡️ سؤال جديد</button>
+      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 القائمة</button>
     </div>
   </div>
 
@@ -189,9 +179,9 @@ input[type="text"] {
   <div id="game-saheb" class="screen">
     <div class="card">
       <h2>🤫 مين الصاحب؟</h2>
-      <div style="background:rgba(0,0,0,0.5); padding:20px; border-radius:16px; margin:15px 0; font-size:18px;" id="sahebText"></div>
+      <div style="background:#0a0e17; padding:15px; border-radius:10px; margin:10px 0; font-size:16px;" id="sahebText"></div>
       <button class="btn green" onclick="requestNextQ('saheb')">🎲 كارت جديد</button>
-      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
+      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 القائمة</button>
     </div>
   </div>
 
@@ -199,10 +189,10 @@ input[type="text"] {
   <div id="game-questions" class="screen">
     <div class="card">
       <h2>🎯 أسئلة وعقاب الخسران</h2>
-      <div style="background:rgba(0,0,0,0.5); padding:20px; border-radius:16px; margin:15px 0; font-size:18px;" id="qText"></div>
-      <div style="background:rgba(255,71,87,0.2); border:1px solid var(--accent); padding:10px; border-radius:12px; margin-bottom:10px;" id="punishText"></div>
-      <button class="btn green" onclick="requestNextQ('questions')">🎯 سؤال وعقاب جديد</button>
-      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
+      <div style="background:#0a0e17; padding:15px; border-radius:10px; margin:10px 0; font-size:16px;" id="qText"></div>
+      <div style="background:rgba(255,71,87,0.2); border:1px solid var(--accent); padding:8px; border-radius:8px; margin-bottom:8px; font-size:13px;" id="punishText"></div>
+      <button class="btn green" onclick="requestNextQ('questions')">🎯 سؤال جديد</button>
+      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 القائمة</button>
     </div>
   </div>
 
@@ -210,11 +200,11 @@ input[type="text"] {
   <div id="game-emoji" class="screen">
     <div class="card">
       <h2>🧩 خمن الإيموجي</h2>
-      <div style="font-size:40px; margin:15px 0;" id="emojiText"></div>
-      <button class="btn green" onclick="showEmojiAnswer()">👁️ إظهار الإجابة للكل</button>
-      <div id="emojiAnswer" style="display:none; color:var(--accent-blue); font-size:20px; margin:10px 0; font-weight:bold;"></div>
-      <button class="btn" onclick="requestNextQ('emoji')">➡️ خمن إيموجي تاني</button>
-      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
+      <div style="font-size:35px; margin:10px 0;" id="emojiText"></div>
+      <button class="btn green" onclick="showEmojiAnswer()">👁️ إظهار الإجابة</button>
+      <div id="emojiAnswer" style="display:none; color:var(--accent-blue); font-size:18px; margin:8px 0; font-weight:bold;"></div>
+      <button class="btn" onclick="requestNextQ('emoji')">➡️ إيموجي تاني</button>
+      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 القائمة</button>
     </div>
   </div>
 
@@ -451,7 +441,6 @@ function addPlayerToUserSquad(player, owner, price) {
 }
 
 function renderSquadsLists() {
-  // My Squad
   const myContainer = document.getElementById('mySquadList');
   let myItems = squadsData[myName] || [];
   if(myItems.length === 0) {
@@ -464,7 +453,6 @@ function renderSquadsLists() {
     myContainer.innerHTML = html;
   }
 
-  // Opponent Squad (Show first other active player or general opponent)
   const oppContainer = document.getElementById('opponentSquadList');
   let oppName = Object.keys(squadsData).find(k => k !== myName);
   let oppItems = oppName ? squadsData[oppName] : [];
@@ -498,4 +486,14 @@ function requestNextQ(game) {
     sendToServerOrAll({ type: 'text', target: 'punishText', txt: item.p });
   } else if(game === 'emoji') {
     const item = emojiList[Math.floor(Math.random() * emojiList.length)];
-    sendToServerOrA
+    sendToServerOrAll({ type: 'text', target: 'emojiText', txt: item.e });
+    sendToServerOrAll({ type: 'text', target: 'emojiAnswer', txt: item.a });
+  }
+}
+
+function showEmojiAnswer() {
+  let ansText = document.getElementById('emojiAnswer').innerText;
+}
+</script>
+</body>
+</html>
