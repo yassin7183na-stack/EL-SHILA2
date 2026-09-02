@@ -3,10 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>الشِلّة أونلاين — El-Shla Multiplayer</title>
+<title>الشِلّة — El-Shla Ultimate</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-
-<!-- PeerJS for Free Direct Multiplayer -->
 <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
 
 <style>
@@ -31,7 +29,6 @@ body {
 }
 
 .wrap { width: 100%; max-width: 500px; }
-
 .screen { display: none; animation: fadeIn 0.3s ease-in-out; }
 .screen.active { display: block; }
 
@@ -46,15 +43,14 @@ body {
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6); text-align: center;
 }
 
-h1 { font-size: 38px; font-weight: 900; margin: 5px 0; background: linear-gradient(135deg, #fff 0%, #a29bfe 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-h2 { font-size: 22px; margin-top: 0; color: #fff; }
+h1 { font-size: 36px; font-weight: 900; margin: 5px 0; background: linear-gradient(135deg, #fff 0%, #a29bfe 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+h2 { font-size: 20px; margin-top: 0; color: #fff; }
 
 .btn {
   width: 100%; padding: 14px; margin: 8px 0; border: 0; border-radius: 16px;
   background: linear-gradient(135deg, #6c5ce7 0%, #4834d4 100%);
-  color: white; font-size: 17px; font-weight: 800; cursor: pointer;
+  color: white; font-size: 16px; font-weight: 800; cursor: pointer;
   box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4); transition: 0.2s;
-  display: flex; align-items: center; justify-content: center; gap: 10px;
 }
 .btn:active { transform: scale(0.96); }
 .btn.green { background: linear-gradient(135deg, #2ed573 0%, #26af5f 100%); box-shadow: 0 8px 20px rgba(46, 213, 115, 0.3); }
@@ -72,10 +68,10 @@ input[type="text"] {
   border-radius: 20px; padding: 15px; margin: 15px 0; text-align: center;
 }
 .player-img {
-  width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
+  width: 130px; height: 130px; border-radius: 50%; object-fit: cover;
   border: 4px solid var(--accent-blue); box-shadow: 0 0 20px rgba(46, 213, 115, 0.4); margin-bottom: 10px;
 }
-.auction-price { font-size: 26px; color: var(--accent-blue); font-weight: 900; margin: 10px 0; }
+.auction-price { font-size: 24px; color: var(--accent-blue); font-weight: 900; margin: 10px 0; }
 
 .dev-card {
   background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);
@@ -87,89 +83,109 @@ input[type="text"] {
 </head>
 <body>
 
-<audio id="bgMusic" loop preload="auto">
-  <source src="https://assets.mixkit.co/music/preview/mixkit-stadium-rock-208.mp3" type="audio/mpeg">
-</audio>
-
 <div class="wrap">
 
   <!-- MAIN MENU -->
   <div id="screen-main" class="screen active">
     <div class="card">
-      <div style="font-size: 50px;">⚽</div>
-      <h1>الشِلّة أونلاين</h1>
-      <p style="color:var(--text-muted);">العب مع أصحابك أونلاين من بيوتكم!</p>
+      <div style="font-size: 50px;">🎮</div>
+      <h1>مجمع ألعاب الشِلّة</h1>
+      <p style="color:var(--text-muted);">اختر طريقة اللعب المفضلة لجمع الشلة!</p>
 
-      <input type="text" id="playerName" placeholder="اكتب اسمك هنا...">
-      
-      <button class="btn green" onclick="playGameStart()">🎮 دخول نظام الغرف</button>
+      <button class="btn green" onclick="selectMode('online')">🌐 لعب أونلاين (غرف من بيوتكم)</button>
+      <button class="btn" onclick="selectMode('local')">📱 لعب بتليفون واحد (شاشة واحدة)</button>
       <button class="btn alt" onclick="navTo('screen-devs')">👨‍💻 المطورين</button>
     </div>
   </div>
 
-  <!-- ROOMS SCREEN -->
+  <!-- MODE: ONLINE ROOMS -->
   <div id="screen-rooms" class="screen">
     <div class="card">
-      <h2>🏠 الغرف الأونلاين</h2>
+      <h2>🌐 نظام الغرف الأونلاين</h2>
+      <input type="text" id="playerName" placeholder="اكتب اسمك هنا...">
+      <input type="text" id="roomCodeInput" placeholder="كود الغرفة (مثال: 1234)">
       
-      <input type="text" id="roomCodeInput" placeholder="اكتب كود الغرفة (مثال: elshla123)">
-      
-      <button class="btn green" onclick="joinRoom()">🚪 الانضمام لغرفة</button>
+      <button class="btn green" onclick="joinRoom()">🚪 دخول الغرفة</button>
       <button class="btn" onclick="createRoom()">➕ إنشاء غرفة جديدة</button>
       <button class="btn alt" onclick="navTo('screen-main')">🏠 القائمة الرئيسية</button>
     </div>
   </div>
 
-  <!-- LOBBY SCREEN -->
+  <!-- GAMES LOBBY -->
   <div id="screen-lobby" class="screen">
     <div class="card">
-      <h2>غرفة رقم: <span id="currentRoomCode" style="color:var(--accent-blue);"></span></h2>
-      <p style="color:var(--text-muted);">ابعث الكود ده لأصحابك عشان يدخلوا معاك!</p>
-      
-      <div id="statusText" style="background:rgba(0,0,0,0.3); padding:10px; border-radius:12px; margin:10px 0; font-weight:bold; color:var(--accent-blue);">
-        جاري الاتصال بالسيرفر الأونلاين...
-      </div>
+      <h2>اختر اللعبة 🎲</h2>
+      <div id="statusText" style="color:var(--accent-blue); font-size:14px; margin-bottom:10px;"></div>
 
-      <h2>اختر اللعبة 🎮</h2>
-      <button class="btn" onclick="startAuctionGame()">⚽ مزاد أساطير الكرة (بالصور)</button>
-      <button class="btn" onclick="startBhawerGame()">🤥 لعبة بحور ولا مبحورش</button>
-      <button class="btn alt" onclick="navTo('screen-rooms')">⬅️ خروج من الغرفة</button>
+      <button class="btn" onclick="startGame('auction')">⚽ 1. مزاد أساطير الكرة (بالصور)</button>
+      <button class="btn" onclick="startGame('bahawer')">🤥 2. بحور ولا مبحورش؟</button>
+      <button class="btn" onclick="startGame('saheb')">🤫 3. مين الصاحب؟ (كشف أسرار)</button>
+      <button class="btn" onclick="startGame('questions')">🎯 4. أسئلة الشلة وعقاب الخسران</button>
+      <button class="btn" onclick="startGame('emoji')">🧩 5. تخمين الإيموجي والقدرات</button>
+      
+      <button class="btn alt" onclick="navTo('screen-main')">🏠 القائمة الرئيسية</button>
     </div>
   </div>
 
-  <!-- GAME 1: AUCTION WITH IMAGES -->
+  <!-- GAME 1: AUCTION -->
   <div id="game-auction" class="screen">
     <div class="card">
-      <h2>⚽ مزاد أساطير الكرة</h2>
-      
+      <h2>⚽ مزاد الأساطير</h2>
       <div class="player-card">
-        <img id="auctionPlayerImg" class="player-img" src="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400" alt="لاعب">
-        <h3 id="auctionPlayerName" style="margin:5px 0; font-size:24px;">كيليان مبابي</h3>
-        <div class="auction-price">أعلى مزايدة: <span id="highestBid">50</span>M$</div>
-        <div style="font-size:14px; color:var(--text-muted);">المزايد الحالي: <b id="highestBidder" style="color:#fff;">بداية المزاد</b></div>
+        <img id="auctionPlayerImg" class="player-img" src="" alt="لاعب">
+        <h3 id="auctionPlayerName" style="margin:5px 0;"></h3>
+        <div class="auction-price"><span id="highestBid">50</span>M$</div>
+        <div style="font-size:14px; color:var(--text-muted);">المزايد: <b id="highestBidder" style="color:#fff;">بداية المزاد</b></div>
       </div>
-
       <button class="btn green" onclick="makeBid(5)">💰 مزايدة بـ +5M$</button>
       <button class="btn" onclick="nextAuctionPlayer()">➡️ اللاعب التالي</button>
-      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 اللوبي</button>
+      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
     </div>
   </div>
 
-  <!-- GAME 2: BAHAWER GAME -->
+  <!-- GAME 2: BAHAWER -->
   <div id="game-bahawer" class="screen">
     <div class="card">
       <h2>🤥 بحور ولا مبحورش؟</h2>
-      <div style="background:rgba(0,0,0,0.5); padding:20px; border-radius:16px; margin:15px 0; font-size:18px; border:1px dashed var(--primary);" id="bahawerQuestion">
-        مين أكتر واحد في الشلة بيحور لما يتأخر في الميعاد؟
-      </div>
-
-      <button class="btn green" onclick="voteBahawer('مبحورش 😇')">😇 مبحورش (صادق)</button>
-      <button class="btn danger" onclick="voteBahawer('بيحور 🤥')">🤥 بيحور (كذاب)</button>
-      
+      <div style="background:rgba(0,0,0,0.5); padding:20px; border-radius:16px; margin:15px 0; font-size:18px;" id="bahawerQuestion"></div>
+      <button class="btn green" onclick="vote('مبحورش 😇')">😇 مبحورش</button>
+      <button class="btn danger" onclick="vote('بيحور 🤥')">🤥 بيحور</button>
       <div id="votesResult" style="margin-top:15px; font-weight:bold; color:var(--accent-blue);"></div>
-      
-      <button class="btn alt" onclick="nextBahawerQuestion()" style="margin-top:10px;">➡️ سؤال جديد</button>
-      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 اللوبي</button>
+      <button class="btn alt" onclick="nextQuestion('bahawer')" style="margin-top:10px;">➡️ سؤال جديد</button>
+      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
+    </div>
+  </div>
+
+  <!-- GAME 3: SAHEB -->
+  <div id="game-saheb" class="screen">
+    <div class="card">
+      <h2>🤫 مين الصاحب؟</h2>
+      <div style="background:rgba(0,0,0,0.5); padding:20px; border-radius:16px; margin:15px 0; font-size:18px;" id="sahebText"></div>
+      <button class="btn green" onclick="nextQuestion('saheb')">🎲 كارت جديد</button>
+      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
+    </div>
+  </div>
+
+  <!-- GAME 4: QUESTIONS & PUNISHMENT -->
+  <div id="game-questions" class="screen">
+    <div class="card">
+      <h2>🎯 أسئلة وعقاب الخسران</h2>
+      <div style="background:rgba(0,0,0,0.5); padding:20px; border-radius:16px; margin:15px 0; font-size:18px;" id="qText"></div>
+      <div style="background:rgba(255,71,87,0.2); border:1px solid var(--accent); padding:10px; border-radius:12px; margin-bottom:10px;" id="punishText"></div>
+      <button class="btn green" onclick="nextQuestion('questions')">🎯 سؤال وعقاب جديد</button>
+      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
+    </div>
+  </div>
+
+  <!-- GAME 5: EMOJI -->
+  <div id="game-emoji" class="screen">
+    <div class="card">
+      <h2>🧩 خمن الإيموجي</h2>
+      <div style="font-size:40px; margin:15px 0;" id="emojiText"></div>
+      <button class="btn green" id="showAnswerBtn" onclick="document.getElementById('emojiAnswer').style.display='block'">👁️ إظهار الإجابة</button>
+      <div id="emojiAnswer" style="display:none; color:var(--accent-blue); font-size:20px; margin:10px 0; font-weight:bold;"></div>
+      <button class="btn" onclick="nextQuestion('emoji')">➡️ خمن إيموجي تاني</button>
+      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
     </div>
   </div>
 
@@ -200,39 +216,46 @@ const footballPlayers = [
   { name: "إيرلينج هالاند", img: "https://images.unsplash.com/photo-1517649763962-0c623266ddc0?w=400" }
 ];
 
-const bahawerQuestions = [
-  "مين أكتر واحد في الشلة بيحور لما يتأخر في الميعاد؟",
-  "مين أكتر واحد بيعمل نفسه فاهم وهو مش فاهم حاجة؟",
-  "مين أكتر واحد بياكل أكل صحابه ومبيسدش؟",
-  "مين أكتر واحد بيخاف من الأفلام المرعبة؟"
+const bahawerList = ["مين أكتر واحد في الشلة بيحور لما يتأخر؟", "مين أكتر واحد بيعمل فاهم وهو مش فاهم؟", "مين بياكل أكل صحابه؟"];
+const sahebList = ["شاور على أكتر واحد بيحفظ الأسرار", "مين أكتر واحد بيصرف فلوسه بسرعة؟", "مين الشخص اللي يحل أي مشكلة في الشلة؟"];
+const questionsList = [
+  { q: "ما هي عاصمة أسبانيا؟", p: "العقاب: غني أغنية بصوت عالي لمدة 10 ثواني!" },
+  { q: "من الفائز بكأس العالم 2022؟", p: "العقاب: اعمل 10 ضغط فوراً!" }
+];
+const emojiList = [
+  { e: "🦁👑", a: "الأسد الملك (Simba)" },
+  { e: "🕷️👨", a: "سبايدرمان (Spider-Man)" },
+  { e: "🕵️‍♂️🔍", a: "المحقق كونان" }
 ];
 
-let myName = "";
+let isOnline = false;
+let myName = "لاعب";
 let currentRoom = "";
-let peer = null;
-let conn = null;
-let connections = [];
-let currentBid = 50;
-let playerIdx = 0;
+let peer = null, conn = null, connections = [];
+let currentBid = 50, playerIdx = 0;
 
 function navTo(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 }
 
-function playGameStart() {
-  myName = document.getElementById('playerName').value.trim();
-  if(!myName) { alert('اكتب اسمك الأول يا بطل!'); return; }
-  document.getElementById('bgMusic').play().catch(()=>{});
-  navTo('screen-rooms');
+function selectMode(mode) {
+  isOnline = (mode === 'online');
+  if(isOnline) navTo('screen-rooms');
+  else {
+    document.getElementById('statusText').innerText = "🎮 الوضع المحلي (تليفون واحد)";
+    navTo('screen-lobby');
+  }
 }
 
 function createRoom() {
+  myName = document.getElementById('playerName').value.trim() || "لاعب 1";
   currentRoom = 'shla-' + Math.floor(1000 + Math.random() * 9000);
   initPeer(currentRoom, true);
 }
 
 function joinRoom() {
+  myName = document.getElementById('playerName').value.trim() || "لاعب 2";
   const code = document.getElementById('roomCodeInput').value.trim();
   if(!code) { alert('اكتب كود الغرفة!'); return; }
   currentRoom = code.startsWith('shla-') ? code : 'shla-' + code;
@@ -240,64 +263,51 @@ function joinRoom() {
 }
 
 function initPeer(id, isHost) {
-  document.getElementById('currentRoomCode').innerText = currentRoom.replace('shla-', '');
   navTo('screen-lobby');
-  
   peer = id ? new Peer(id) : new Peer();
-
-  peer.on('open', (myId) => {
-    document.getElementById('statusText').innerText = isHost ? "🟢 تم إنشاء الغرفة! متصل كـ (منشئ الغرفة)" : "🟢 متصل بالسيرفر! جاري الانضمام...";
-    if(!isHost) {
-      conn = peer.connect(currentRoom);
-      setupConn(conn);
-    }
+  peer.on('open', () => {
+    document.getElementById('statusText').innerText = "🟢 الغرفة: " + currentRoom.replace('shla-','') + " | المتصل: " + myName;
+    if(!isHost) { conn = peer.connect(currentRoom); setupConn(conn); }
   });
-
-  peer.on('connection', (c) => {
-    connections.push(c);
-    setupConn(c);
-    document.getElementById('statusText').innerText = "🟢 دخل لاعب جديد للغرفة!";
-  });
+  peer.on('connection', (c) => { connections.push(c); setupConn(c); });
 }
 
 function setupConn(c) {
-  c.on('data', (data) => {
-    handleNetworkData(data);
-  });
+  c.on('data', (d) => handleNetData(d));
 }
 
-function broadcast(data) {
-  if(conn) conn.send(data);
-  connections.forEach(c => c.send(data));
+function broadcast(d) {
+  if(!isOnline) return;
+  if(conn) conn.send(d);
+  connections.forEach(c => c.send(d));
 }
 
-function handleNetworkData(data) {
-  if(data.type === 'nav') navTo(data.screen);
-  if(data.type === 'bid') {
-    currentBid = data.bid;
-    document.getElementById('highestBid').innerText = data.bid;
-    document.getElementById('highestBidder').innerText = data.bidder;
+function handleNetData(d) {
+  if(d.type === 'nav') navTo(d.screen);
+  if(d.type === 'bid') {
+    currentBid = d.bid;
+    document.getElementById('highestBid').innerText = d.bid;
+    document.getElementById('highestBidder').innerText = d.bidder;
   }
-  if(data.type === 'auction_player') {
-    const p = footballPlayers[data.idx];
-    document.getElementById('auctionPlayerName').innerText = p.name;
-    document.getElementById('auctionPlayerImg').src = p.img;
-    currentBid = 50;
-    document.getElementById('highestBid').innerText = 50;
-    document.getElementById('highestBidder').innerText = "بداية المزاد";
-  }
-  if(data.type === 'bahawer_q') {
-    document.getElementById('bahawerQuestion').innerText = data.q;
-  }
-  if(data.type === 'bahawer_vote') {
-    document.getElementById('votesResult').innerText = data.voter + " صوت بـ: " + data.vote;
-  }
+  if(d.type === 'auction_p') setAuctionPlayer(d.idx);
+  if(d.type === 'text') document.getElementById(d.target).innerText = d.txt;
 }
 
-// AUCTION
-function startAuctionGame() {
-  navTo('game-auction');
-  broadcast({ type: 'nav', screen: 'game-auction' });
+function startGame(game) {
+  navTo('game-' + game);
+  broadcast({ type: 'nav', screen: 'game-' + game });
+  if(game === 'auction') setAuctionPlayer(0);
+  else nextQuestion(game);
+}
+
+function setAuctionPlayer(idx) {
+  playerIdx = idx;
+  const p = footballPlayers[idx];
+  document.getElementById('auctionPlayerName').innerText = p.name;
+  document.getElementById('auctionPlayerImg').src = p.img;
+  currentBid = 50;
+  document.getElementById('highestBid').innerText = 50;
+  document.getElementById('highestBidder').innerText = "بداية المزاد";
 }
 
 function makeBid(step) {
@@ -308,32 +318,39 @@ function makeBid(step) {
 }
 
 function nextAuctionPlayer() {
-  playerIdx = (playerIdx + 1) % footballPlayers.length;
-  const p = footballPlayers[playerIdx];
-  document.getElementById('auctionPlayerName').innerText = p.name;
-  document.getElementById('auctionPlayerImg').src = p.img;
-  currentBid = 50;
-  document.getElementById('highestBid').innerText = 50;
-  document.getElementById('highestBidder').innerText = "بداية المزاد";
-  broadcast({ type: 'auction_player', idx: playerIdx });
+  const nextIdx = (playerIdx + 1) % footballPlayers.length;
+  setAuctionPlayer(nextIdx);
+  broadcast({ type: 'auction_p', idx: nextIdx });
 }
 
-// BAHAWER
-function startBhawerGame() {
-  navTo('game-bahawer');
-  broadcast({ type: 'nav', screen: 'game-bahawer' });
+function vote(type) {
+  document.getElementById('votesResult').innerText = myName + " صوت: " + type;
+  broadcast({ type: 'text', target: 'votesResult', txt: myName + " صوت: " + type });
 }
 
-function nextBahawerQuestion() {
-  const q = bahawerQuestions[Math.floor(Math.random() * bahawerQuestions.length)];
-  document.getElementById('bahawerQuestion').innerText = q;
-  document.getElementById('votesResult').innerText = "";
-  broadcast({ type: 'bahawer_q', q: q });
-}
-
-function voteBahawer(type) {
-  document.getElementById('votesResult').innerText = myName + " صوت بـ: " + type;
-  broadcast({ type: 'bahawer_vote', voter: myName, vote: type });
+function nextQuestion(game) {
+  if(game === 'bahawer') {
+    const q = bahawerList[Math.floor(Math.random() * bahawerList.length)];
+    document.getElementById('bahawerQuestion').innerText = q;
+    document.getElementById('votesResult').innerText = "";
+    broadcast({ type: 'text', target: 'bahawerQuestion', txt: q });
+  }
+  if(game === 'saheb') {
+    const q = sahebList[Math.floor(Math.random() * sahebList.length)];
+    document.getElementById('sahebText').innerText = q;
+    broadcast({ type: 'text', target: 'sahebText', txt: q });
+  }
+  if(game === 'questions') {
+    const item = questionsList[Math.floor(Math.random() * questionsList.length)];
+    document.getElementById('qText').innerText = item.q;
+    document.getElementById('punishText').innerText = item.p;
+  }
+  if(game === 'emoji') {
+    const item = emojiList[Math.floor(Math.random() * emojiList.length)];
+    document.getElementById('emojiText').innerText = item.e;
+    document.getElementById('emojiAnswer').innerText = item.a;
+    document.getElementById('emojiAnswer').style.display = 'none';
+  }
 }
 </script>
 </body>
