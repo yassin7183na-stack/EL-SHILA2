@@ -68,21 +68,24 @@ input[type="text"] {
   border-radius: 20px; padding: 12px; margin: 10px 0; text-align: center;
 }
 .player-img {
-  width: 100px; height: 100px; border-radius: 50%; object-fit: cover;
-  border: 4px solid var(--accent-blue); box-shadow: 0 0 15px rgba(46, 213, 115, 0.4); margin-bottom: 8px;
+  width: 90px; height: 90px; border-radius: 50%; object-fit: cover;
+  border: 3px solid var(--accent-blue); box-shadow: 0 0 15px rgba(46, 213, 115, 0.4); margin-bottom: 6px;
 }
-.auction-price { font-size: 22px; color: var(--accent-blue); font-weight: 900; margin: 5px 0; }
-.timer-box { font-size: 15px; font-weight: bold; color: var(--accent); background: rgba(255,71,87,0.1); padding: 6px; border-radius: 10px; margin-bottom: 8px; }
+.auction-price { font-size: 20px; color: var(--accent-blue); font-weight: 900; margin: 3px 0; }
+.timer-box { font-size: 14px; font-weight: bold; color: var(--accent); background: rgba(255,71,87,0.1); padding: 5px; border-radius: 10px; margin-bottom: 6px; }
 
-/* Squad Section inside Auction */
-.live-squad-section {
-  margin-top: 15px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color);
-  border-radius: 16px; padding: 10px; text-align: right;
+/* Budget & Squad Styles */
+.budget-bar {
+  display: flex; justify-content: space-around; background: rgba(0,0,0,0.4);
+  border: 1px solid var(--border-color); border-radius: 12px; padding: 8px; margin-bottom: 10px; font-size: 13px;
 }
-.live-squad-title { font-size: 14px; color: var(--accent-blue); font-weight: bold; margin-bottom: 8px; text-align: center; }
-.squad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-height: 140px; overflow-y: auto; }
-.squad-item { background: rgba(0,0,0,0.5); border: 1px solid var(--border-color); border-radius: 10px; padding: 6px; text-align: center; }
-.squad-item img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+.squads-container {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; text-align: right; max-height: 150px; overflow-y: auto;
+}
+.squad-box { background: rgba(0,0,0,0.4); border: 1px solid var(--border-color); border-radius: 12px; padding: 8px; }
+.squad-title { font-size: 11px; color: var(--accent-blue); font-weight: bold; margin-bottom: 4px; border-bottom: 1px solid var(--border-color); padding-bottom: 2px; }
+.squad-item-row { display: flex; align-items: center; gap: 5px; margin-top: 4px; background: rgba(255,255,255,0.05); padding: 3px; border-radius: 6px; }
+.squad-item-row img { width: 25px; height: 25px; border-radius: 50%; object-fit: cover; }
 
 .dev-card {
   background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);
@@ -100,7 +103,7 @@ input[type="text"] {
     <div class="card">
       <div style="font-size: 50px;">🎮</div>
       <h1>مجمع ألعاب الشِلّة</h1>
-      <p style="color:var(--text-muted);">النسخة الكاملة مع تشكيلة مباشرة تحت المزاد!</p>
+      <p style="color:var(--text-muted);">النسخة المحدثة والمضبوطة بالكامل!</p>
       <button class="btn green" onclick="selectMode('online')">🌐 لعب أونلاين (غرف من بيوتكم)</button>
       <button class="btn" onclick="selectMode('local')">📱 لعب بتليفون واحد (شاشة واحدة)</button>
       <button class="btn alt" onclick="navTo('screen-devs')">👨‍💻 المطورين</button>
@@ -133,28 +136,37 @@ input[type="text"] {
     </div>
   </div>
 
-  <!-- GAME 1: AUCTION WITH LIVE SQUAD -->
+  <!-- GAME 1: AUCTION -->
   <div id="game-auction" class="screen">
     <div class="card" style="padding: 15px;">
       <h2>⚽ مزاد الأساطير</h2>
-      <div class="timer-box">⏳ الوقت باقي: <span id="auctionTimer">15</span> ثانية</div>
+      <div class="timer-box">⏳ الوقت باقي: <span id="auctionTimer">60</span> ثانية</div>
       
+      <!-- Budget Bar -->
+      <div class="budget-bar">
+        <span>فلوسك: <b id="myBudget" style="color:var(--accent-blue);">500M$</b></span>
+        <span>أعلى مزايد: <b id="highestBidder" style="color:#fff;">محدش</b></span>
+      </div>
+
       <div class="player-card">
         <img id="auctionPlayerImg" class="player-img" src="" alt="لاعب">
         <h3 id="auctionPlayerName" style="margin:4px 0;"></h3>
-        <div class="auction-price"><span id="highestBid">50</span>M$</div>
-        <div style="font-size:13px; color:var(--text-muted);">المزايد: <b id="highestBidder" style="color:#fff;">بداية المزاد</b></div>
+        <div class="auction-price"><span id="highestBid">10</span>M$</div>
       </div>
 
-      <button class="btn green" onclick="makeBid(5)">💰 مزايدة بـ +5M$</button>
-      <button class="btn danger" onclick="finalizeAuction()">✋ تنازل (إرساء المزاد)</button>
+      <button class="btn green" onclick="makeBid(10)">💰 مزايدة بـ +10M$</button>
+      <button class="btn danger" onclick="finalizeAuction()">✋ بيع وإرساء المزاد</button>
       <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
 
-      <!-- TESHKILA (Squad) Section -->
-      <div class="live-squad-section">
-        <div class="live-squad-title">📋 تشكيلة الفريق المجمعة:</div>
-        <div id="squadContainer" class="squad-grid">
-          <span style="color:var(--text-muted); font-size:12px; grid-column: span 3; text-align: center;">لسه مفيش لاعبين في التشكيلة</span>
+      <!-- Separate Squads Section -->
+      <div class="squads-container">
+        <div class="squad-box">
+          <div class="squad-title">📋 تشكيلتك (<span id="myNameLabel">أنت</span>)</div>
+          <div id="mySquadList"><span style="font-size:10px; color:var(--text-muted);">فاضية</span></div>
+        </div>
+        <div class="squad-box">
+          <div class="squad-title">📋 تشكيلة الخصم</div>
+          <div id="opponentSquadList"><span style="font-size:10px; color:var(--text-muted);">فاضية</span></div>
         </div>
       </div>
     </div>
@@ -225,11 +237,11 @@ input[type="text"] {
 
 <script>
 const footballPlayers = [
-  { name: "كيليان مبابي", img: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400" },
-  { name: "محمد صلاح", img: "https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=400" },
-  { name: "ليونيل ميسي", img: "https://images.unsplash.com/photo-1543351611-58f69d7c1781?w=400" },
-  { name: "كريستيانو رونالدو", img: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400" },
-  { name: "إيرلينج هالاند", img: "https://images.unsplash.com/photo-1517649763962-0c623266ddc0?w=400" }
+  { name: "محمد صلاح", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Mohamed_Salah_2018.jpg/440px-Mohamed_Salah_2018.jpg" },
+  { name: "ليونيل ميسي", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Lionel-Messi-Argentina-2022_FIFA_World_Cup_%28cropped%29.jpg/440px-Lionel-Messi-Argentina-2022_FIFA_World_Cup_%28cropped%29.jpg" },
+  { name: "كريستيانو رونالدو", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Cristiano_Ronaldo_playing_for_Al_Nassr_FC_%28cropped%29.jpg/440px-Cristiano_Ronaldo_playing_for_Al_Nassr_FC_%28cropped%29.jpg" },
+  { name: "كيليان مبابي", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Kylian_Mbapp%C3%A9_2018.jpg/440px-Kylian_Mbapp%C3%A9_2018.jpg" },
+  { name: "إيرلينج هالاند", img: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Erling_Haaland_2023_%28cropped%29.jpg/440px-Erling_Haaland_2023_%28cropped%29.jpg" }
 ];
 
 const bahawerList = ["مين أكتر واحد في الشلة بيحور لما يتأخر؟", "مين أكتر واحد بيعمل فاهم وهو مش فاهم؟", "مين بياكل أكل صحابه؟"];
@@ -239,15 +251,16 @@ const questionsList = [
   { q: "من الفائز بكأس العالم 2022؟", p: "العقاب: اعمل 10 ضغط فوراً!" }
 ];
 const emojiList = [
-  { e: "🦁👑", a: "الأسد الملك (Simba)" },
-  { e: "🕷️👨", a: "سبايدرمان (Spider-Man)" },
+  { e: "🦁👑", a: "الأسد الملك" },
+  { e: "🕷️👨", a: "سبايدرمان" },
   { e: "🕵️‍♂️🔍", a: "المحقق كونان" }
 ];
 
 let isOnline = false, isHost = false, myName = "لاعب", currentRoom = "";
 let peer = null, hostConn = null, clientConns = [];
-let currentBid = 50, highestBidderName = "بداية المزاد", playerIdx = 0, timerInterval = null;
-let teamSquad = [];
+let currentBid = 10, highestBidderName = "محدش", playerIdx = 0, timerInterval = null;
+let myBudget = 500;
+let squadsData = {};
 
 function navTo(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -259,13 +272,16 @@ function selectMode(mode) {
   if(isOnline) navTo('screen-rooms');
   else {
     isHost = true;
+    myName = "ياسين";
     document.getElementById('statusText').innerText = "🎮 الوضع المحلي (تليفون واحد)";
+    document.getElementById('myNameLabel').innerText = myName;
     navTo('screen-lobby');
   }
 }
 
 function createRoom() {
   myName = document.getElementById('playerName').value.trim() || "لاعب 1";
+  document.getElementById('myNameLabel').innerText = myName;
   currentRoom = 'shla-' + Math.floor(1000 + Math.random() * 9000);
   isHost = true;
   initPeer(currentRoom);
@@ -273,6 +289,7 @@ function createRoom() {
 
 function joinRoom() {
   myName = document.getElementById('playerName').value.trim() || "لاعب 2";
+  document.getElementById('myNameLabel').innerText = myName;
   const code = document.getElementById('roomCodeInput').value.trim();
   if(!code) { alert('اكتب كود الغرفة!'); return; }
   currentRoom = code.startsWith('shla-') ? code : 'shla-' + code;
@@ -343,7 +360,7 @@ function processPacket(d) {
     updateAuctionUI();
   }
   if(d.type === 'add_squad') {
-    addPlayerToSquadLocally(d.player, d.owner);
+    addPlayerToUserSquad(d.player, d.owner, d.price);
   }
   if(d.type === 'text') {
     document.getElementById(d.target).innerText = d.txt;
@@ -358,6 +375,9 @@ function requestStartGame(game) {
   let screenId = 'game-' + game;
   sendToServerOrAll({ type: 'nav', screen: screenId });
   if(game === 'auction') {
+    myBudget = 500;
+    document.getElementById('myBudget').innerText = myBudget + "M$";
+    squadsData = {};
     playerIdx = 0;
     updateAuctionUI();
     startAuctionTimer();
@@ -370,15 +390,15 @@ function updateAuctionUI() {
   const p = footballPlayers[playerIdx];
   document.getElementById('auctionPlayerName').innerText = p.name;
   document.getElementById('auctionPlayerImg').src = p.img;
-  currentBid = 50;
-  highestBidderName = "بداية المزاد";
-  document.getElementById('highestBid').innerText = 50;
-  document.getElementById('highestBidder').innerText = "بداية المزاد";
+  currentBid = 10;
+  highestBidderName = "محدش";
+  document.getElementById('highestBid').innerText = 10;
+  document.getElementById('highestBidder').innerText = "محدش";
   resetAuctionTimer();
 }
 
 function startAuctionTimer() {
-  let timeLeft = 15;
+  let timeLeft = 60;
   document.getElementById('auctionTimer').innerText = timeLeft;
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
@@ -396,6 +416,10 @@ function resetAuctionTimer() {
 }
 
 function makeBid(step) {
+  if(myBudget < (currentBid + step)) {
+    alert("فلوسك مش تكفي للمزايدة دي!");
+    return;
+  }
   currentBid += step;
   highestBidderName = myName;
   sendToServerOrAll({ type: 'bid', bid: currentBid, bidder: myName });
@@ -404,36 +428,55 @@ function makeBid(step) {
 function finalizeAuction() {
   clearInterval(timerInterval);
   const wonPlayer = footballPlayers[playerIdx];
-  let winner = highestBidderName !== "بداية المزاد" ? highestBidderName : "محدش زايد";
+  let winner = highestBidderName !== "محدش" ? highestBidderName : "محدش";
   
-  sendToServerOrAll({ type: 'add_squad', player: wonPlayer, owner: winner });
+  if(winner !== "محدش") {
+    sendToServerOrAll({ type: 'add_squad', player: wonPlayer, owner: winner, price: currentBid });
+  }
 
   playerIdx = (playerIdx + 1) % footballPlayers.length;
   sendToServerOrAll({ type: 'auction_p', idx: playerIdx });
 }
 
-function addPlayerToSquadLocally(player, owner) {
-  teamSquad.push({ player, owner });
-  renderSquad();
+function addPlayerToUserSquad(player, owner, price) {
+  if(!squadsData[owner]) squadsData[owner] = [];
+  squadsData[owner].push(player);
+
+  if(owner === myName) {
+    myBudget -= price;
+    document.getElementById('myBudget').innerText = myBudget + "M$";
+  }
+
+  renderSquadsLists();
 }
 
-function renderSquad() {
-  const container = document.getElementById('squadContainer');
-  if(teamSquad.length === 0) {
-    container.innerHTML = '<span style="color:var(--text-muted); font-size:12px; grid-column: span 3; text-align: center;">لسه مفيش لاعبين في التشكيلة</span>';
-    return;
+function renderSquadsLists() {
+  // My Squad
+  const myContainer = document.getElementById('mySquadList');
+  let myItems = squadsData[myName] || [];
+  if(myItems.length === 0) {
+    myContainer.innerHTML = '<span style="font-size:10px; color:var(--text-muted);">فاضية</span>';
+  } else {
+    let html = '';
+    myItems.forEach(p => {
+      html += `<div class="squad-item-row"><img src="${p.img}"><span style="font-size:11px; color:#fff; font-weight:bold;">${p.name}</span></div>`;
+    });
+    myContainer.innerHTML = html;
   }
-  let html = '';
-  teamSquad.forEach(item => {
-    html += `
-      <div class="squad-item">
-        <img src="${item.player.img}" alt="لاعب">
-        <div style="font-weight:bold; font-size:11px; margin-top:3px; color:#fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item.player.name}</div>
-        <div style="font-size:9px; color:var(--accent-blue);">المالك: ${item.owner}</div>
-      </div>
-    `;
-  });
-  container.innerHTML = html;
+
+  // Opponent Squad (Show first other active player or general opponent)
+  const oppContainer = document.getElementById('opponentSquadList');
+  let oppName = Object.keys(squadsData).find(k => k !== myName);
+  let oppItems = oppName ? squadsData[oppName] : [];
+  if(oppItems.length === 0) {
+    oppContainer.innerHTML = '<span style="font-size:10px; color:var(--text-muted);">فاضية</span>';
+  } else {
+    let html = '';
+    oppItems.forEach(p => {
+      html += `<div class="squad-item-row"><img src="${p.img}"><span style="font-size:11px; color:#fff; font-weight:bold;">${p.name}</span></div>`;
+    });
+    oppContainer.innerHTML = html;
+  }
 }
 
 function vote(type) {
@@ -455,15 +498,4 @@ function requestNextQ(game) {
     sendToServerOrAll({ type: 'text', target: 'punishText', txt: item.p });
   } else if(game === 'emoji') {
     const item = emojiList[Math.floor(Math.random() * emojiList.length)];
-    sendToServerOrAll({ type: 'text', target: 'emojiText', txt: item.e });
-    sendToServerOrAll({ type: 'text', target: 'emojiAnswer', txt: item.a });
-  }
-}
-
-function showEmojiAnswer() {
-  let ansText = document.getElementById('emojiAnswer').innerText;
-  sendToServerOrAll({ type: 'show_emoji', ans: ansText });
-}
-</script>
-</body>
-</html>
+    sendToServerOrA
