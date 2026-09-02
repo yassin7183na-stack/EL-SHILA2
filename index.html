@@ -47,9 +47,9 @@ h1 { font-size: 32px; font-weight: 900; margin: 5px 0; background: linear-gradie
 h2 { font-size: 20px; margin-top: 0; color: #fff; }
 
 .btn {
-  width: 100%; padding: 14px; margin: 8px 0; border: 0; border-radius: 16px;
+  width: 100%; padding: 12px; margin: 6px 0; border: 0; border-radius: 16px;
   background: linear-gradient(135deg, #6c5ce7 0%, #4834d4 100%);
-  color: white; font-size: 16px; font-weight: 800; cursor: pointer;
+  color: white; font-size: 15px; font-weight: 800; cursor: pointer;
   box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4); transition: 0.2s;
 }
 .btn:active { transform: scale(0.96); }
@@ -65,19 +65,24 @@ input[type="text"] {
 
 .player-card {
   background: rgba(0, 0, 0, 0.4); border: 2px solid var(--primary);
-  border-radius: 20px; padding: 15px; margin: 15px 0; text-align: center;
+  border-radius: 20px; padding: 12px; margin: 10px 0; text-align: center;
 }
 .player-img {
-  width: 110px; height: 110px; border-radius: 50%; object-fit: cover;
-  border: 4px solid var(--accent-blue); box-shadow: 0 0 20px rgba(46, 213, 115, 0.4); margin-bottom: 10px;
+  width: 100px; height: 100px; border-radius: 50%; object-fit: cover;
+  border: 4px solid var(--accent-blue); box-shadow: 0 0 15px rgba(46, 213, 115, 0.4); margin-bottom: 8px;
 }
-.auction-price { font-size: 24px; color: var(--accent-blue); font-weight: 900; margin: 8px 0; }
-.timer-box { font-size: 16px; font-weight: bold; color: var(--accent); background: rgba(255,71,87,0.1); padding: 8px; border-radius: 10px; margin-bottom: 10px; }
+.auction-price { font-size: 22px; color: var(--accent-blue); font-weight: 900; margin: 5px 0; }
+.timer-box { font-size: 15px; font-weight: bold; color: var(--accent); background: rgba(255,71,87,0.1); padding: 6px; border-radius: 10px; margin-bottom: 8px; }
 
-/* Squad Grid */
-.squad-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; max-height: 250px; overflow-y: auto; margin: 15px 0; }
-.squad-item { background: rgba(0,0,0,0.5); border: 1px solid var(--accent-blue); border-radius: 12px; padding: 10px; text-align: center; }
-.squad-item img { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; }
+/* Squad Section inside Auction */
+.live-squad-section {
+  margin-top: 15px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color);
+  border-radius: 16px; padding: 10px; text-align: right;
+}
+.live-squad-title { font-size: 14px; color: var(--accent-blue); font-weight: bold; margin-bottom: 8px; text-align: center; }
+.squad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-height: 140px; overflow-y: auto; }
+.squad-item { background: rgba(0,0,0,0.5); border: 1px solid var(--border-color); border-radius: 10px; padding: 6px; text-align: center; }
+.squad-item img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
 
 .dev-card {
   background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);
@@ -95,7 +100,7 @@ input[type="text"] {
     <div class="card">
       <div style="font-size: 50px;">🎮</div>
       <h1>مجمع ألعاب الشِلّة</h1>
-      <p style="color:var(--text-muted);">النسخة الكاملة مع المزاد والتشكيلة!</p>
+      <p style="color:var(--text-muted);">النسخة الكاملة مع تشكيلة مباشرة تحت المزاد!</p>
       <button class="btn green" onclick="selectMode('online')">🌐 لعب أونلاين (غرف من بيوتكم)</button>
       <button class="btn" onclick="selectMode('local')">📱 لعب بتليفون واحد (شاشة واحدة)</button>
       <button class="btn alt" onclick="navTo('screen-devs')">👨‍💻 المطورين</button>
@@ -128,32 +133,30 @@ input[type="text"] {
     </div>
   </div>
 
-  <!-- GAME 1: AUCTION -->
+  <!-- GAME 1: AUCTION WITH LIVE SQUAD -->
   <div id="game-auction" class="screen">
-    <div class="card">
+    <div class="card" style="padding: 15px;">
       <h2>⚽ مزاد الأساطير</h2>
       <div class="timer-box">⏳ الوقت باقي: <span id="auctionTimer">15</span> ثانية</div>
+      
       <div class="player-card">
         <img id="auctionPlayerImg" class="player-img" src="" alt="لاعب">
-        <h3 id="auctionPlayerName" style="margin:5px 0;"></h3>
+        <h3 id="auctionPlayerName" style="margin:4px 0;"></h3>
         <div class="auction-price"><span id="highestBid">50</span>M$</div>
-        <div style="font-size:14px; color:var(--text-muted);">المزايد الحالي: <b id="highestBidder" style="color:#fff;">بداية المزاد</b></div>
+        <div style="font-size:13px; color:var(--text-muted);">المزايد: <b id="highestBidder" style="color:#fff;">بداية المزاد</b></div>
       </div>
+
       <button class="btn green" onclick="makeBid(5)">💰 مزايدة بـ +5M$</button>
       <button class="btn danger" onclick="finalizeAuction()">✋ تنازل (إرساء المزاد)</button>
-      <button class="btn alt" onclick="navTo('screen-squad')">📋 عرض تشكيلة الفريق</button>
       <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
-    </div>
-  </div>
 
-  <!-- SQUAD SCREEN -->
-  <div id="screen-squad" class="screen">
-    <div class="card">
-      <h2>📋 تشكيلة الفريق المجمعة</h2>
-      <div id="squadContainer" class="squad-grid">
-        <p style="color:var(--text-muted); grid-column: span 2;">لسه مفيش لاعبين انضموا للتشكيلة!</p>
+      <!-- TESHKILA (Squad) Section -->
+      <div class="live-squad-section">
+        <div class="live-squad-title">📋 تشكيلة الفريق المجمعة:</div>
+        <div id="squadContainer" class="squad-grid">
+          <span style="color:var(--text-muted); font-size:12px; grid-column: span 3; text-align: center;">لسه مفيش لاعبين في التشكيلة</span>
+        </div>
       </div>
-      <button class="btn alt" onclick="navTo('game-auction')">🔙 العودة للمزاد</button>
     </div>
   </div>
 
@@ -187,7 +190,7 @@ input[type="text"] {
       <div style="background:rgba(0,0,0,0.5); padding:20px; border-radius:16px; margin:15px 0; font-size:18px;" id="qText"></div>
       <div style="background:rgba(255,71,87,0.2); border:1px solid var(--accent); padding:10px; border-radius:12px; margin-bottom:10px;" id="punishText"></div>
       <button class="btn green" onclick="requestNextQ('questions')">🎯 سؤال وعقاب جديد</button>
-      <button class="btn alt" onclick="navT('screen-lobby')">🔙 قائمة الألعاب</button>
+      <button class="btn alt" onclick="navTo('screen-lobby')">🔙 قائمة الألعاب</button>
     </div>
   </div>
 
@@ -403,12 +406,8 @@ function finalizeAuction() {
   const wonPlayer = footballPlayers[playerIdx];
   let winner = highestBidderName !== "بداية المزاد" ? highestBidderName : "محدش زايد";
   
-  alert(" انتهى المزاد! اللاعب " + wonPlayer.name + " من نصيب: " + winner + " بسعر " + currentBid + "M$");
-  
-  // Add to squad
   sendToServerOrAll({ type: 'add_squad', player: wonPlayer, owner: winner });
 
-  // Move to next player automatically
   playerIdx = (playerIdx + 1) % footballPlayers.length;
   sendToServerOrAll({ type: 'auction_p', idx: playerIdx });
 }
@@ -421,7 +420,7 @@ function addPlayerToSquadLocally(player, owner) {
 function renderSquad() {
   const container = document.getElementById('squadContainer');
   if(teamSquad.length === 0) {
-    container.innerHTML = '<p style="color:var(--text-muted); grid-column: span 2;">لسه مفيش لاعبين انضموا للتشكيلة!</p>';
+    container.innerHTML = '<span style="color:var(--text-muted); font-size:12px; grid-column: span 3; text-align: center;">لسه مفيش لاعبين في التشكيلة</span>';
     return;
   }
   let html = '';
@@ -429,8 +428,8 @@ function renderSquad() {
     html += `
       <div class="squad-item">
         <img src="${item.player.img}" alt="لاعب">
-        <div style="font-weight:bold; font-size:14px; margin-top:5px; color:#fff;">${item.player.name}</div>
-        <div style="font-size:11px; color:var(--accent-blue);">المالك: ${item.owner}</div>
+        <div style="font-weight:bold; font-size:11px; margin-top:3px; color:#fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${item.player.name}</div>
+        <div style="font-size:9px; color:var(--accent-blue);">المالك: ${item.owner}</div>
       </div>
     `;
   });
