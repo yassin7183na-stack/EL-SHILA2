@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مين الإمبوستر؟ - اللعبة المصرية</title>
+    <title>مين الإمبوستر؟ - النسخة المطورة 🕵️‍♂️🔥</title>
     <style>
         :root {
-            --bg-gradient: linear-gradient(135deg, #0f172a, #1e1b4b, #31103f);
-            --card-bg: rgba(255, 255, 255, 0.07);
-            --card-border: rgba(255, 255, 255, 0.15);
+            --bg-gradient: linear-gradient(135deg, #090d16, #1a103c, #2e0834);
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --card-border: rgba(255, 255, 255, 0.18);
             --primary: #8b5cf6;
-            --primary-hover: #7c3aed;
             --accent: #ec4899;
+            --success: #10b981;
+            --danger: #f43f5e;
             --text-main: #f8fafc;
             --text-muted: #cbd5e1;
         }
@@ -37,25 +38,25 @@
             width: 100%;
             max-width: 500px;
             background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--card-border);
-            border-radius: 24px;
+            border-radius: 28px;
             padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
             text-align: center;
-            animation: fadeIn 0.5s ease-in-out;
+            animation: fadeIn 0.4s ease-in-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         h1 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, #c084fc, #f472b6);
+            font-size: 2.3rem;
+            margin-bottom: 8px;
+            background: linear-gradient(to right, #e879f9, #38bdf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -64,6 +65,7 @@
             color: var(--text-muted);
             margin-bottom: 25px;
             font-size: 1rem;
+            line-height: 1.5;
         }
 
         .form-group {
@@ -76,14 +78,15 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: var(--text-muted);
+            font-size: 0.95rem;
         }
 
         select, input {
             width: 100%;
-            padding: 12px 16px;
-            background: rgba(15, 23, 42, 0.6);
+            padding: 14px 18px;
+            background: rgba(15, 23, 42, 0.7);
             border: 1px solid var(--card-border);
-            border-radius: 12px;
+            border-radius: 14px;
             color: var(--text-main);
             font-size: 1rem;
             outline: none;
@@ -92,7 +95,7 @@
 
         select:focus, input:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.25);
         }
 
         select option {
@@ -104,24 +107,35 @@
             background: linear-gradient(135deg, var(--primary), var(--accent));
             color: white;
             border: none;
-            padding: 14px 24px;
-            border-radius: 12px;
+            padding: 15px 24px;
+            border-radius: 14px;
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
             width: 100%;
-            transition: transform 0.2s, opacity 0.2s;
+            transition: transform 0.2s, opacity 0.2s, box-shadow 0.2s;
             margin-top: 10px;
-            box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+            box-shadow: 0 6px 20px rgba(236, 72, 153, 0.3);
         }
 
         .btn:hover {
-            opacity: 0.9;
+            opacity: 0.95;
             transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(236, 72, 153, 0.4);
         }
 
         .btn:active {
             transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: none;
+            margin-top: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
         }
 
         .hidden {
@@ -129,15 +143,16 @@
         }
 
         .secret-box {
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(15, 23, 42, 0.85);
             border: 2px dashed var(--accent);
-            border-radius: 16px;
-            padding: 25px;
+            border-radius: 18px;
+            padding: 30px;
             margin: 20px 0;
+            box-shadow: inset 0 0 15px rgba(236, 72, 153, 0.1);
         }
 
         .secret-word {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: bold;
             color: #38bdf8;
             margin: 15px 0;
@@ -145,19 +160,49 @@
         }
 
         .player-turn-title {
-            font-size: 1.4rem;
-            color: #38bdf8;
+            font-size: 1.5rem;
+            color: #c084fc;
             margin-bottom: 10px;
+        }
+
+        .timer-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #f43f5e;
+            margin: 20px 0;
+        }
+
+        .voting-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .vote-btn {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--card-border);
+            padding: 14px;
+            border-radius: 12px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .vote-btn:hover {
+            border-color: var(--accent);
+            background: rgba(236, 72, 153, 0.15);
         }
     </style>
 </head>
 <body>
 
     <div class="container" id="app">
-        <!-- الشاشة الرئيسية -->
+        <!-- 1. الشاشة الرئيسية -->
         <div id="screen-home">
             <h1>مين الإمبوستر؟ 🕵️‍♂️</h1>
-            <p class="subtitle">كلكم هيطلعلكو نفس الشخص/الشيء، ما عدا واحد بس هيطلعله عنصر تاني ومش عارف إنه الإمبوستر!</p>
+            <p class="subtitle">العبة المصرية الأكتر حماساً! اكتشف الخائن اللي طلعله كلمة مختلفة وسطكم.</p>
             
             <div class="form-group">
                 <label for="players-count">عدد اللاعبين (من 3 إلى 6):</label>
@@ -170,56 +215,70 @@
             </div>
 
             <div class="form-group">
-                <label for="category">اختر الفئة:</label>
+                <label for="category">اختر فئة التحدي:</label>
                 <select id="category">
-                    <option value="football">لاعبين كورة (عالمي ومحلي)</option>
-                    <option value="actors">ممثلين مصريين</option>
-                    <option value="food">أكلات مصرية أصيلة</option>
+                    <option value="football">⚽ لاعبين كورة (عالمي ومحلي)</option>
+                    <option value="actors">🎭 ممثلين مصريين</option>
+                    <option value="food">🍲 أكلات مصرية أصيلة</option>
                 </select>
             </div>
 
-            <button class="btn" onclick="startGame()">ابدأ اللعبة 🚀</button>
+            <button class="btn" onclick="startGame()">ابدأ المعركة 🚀</button>
         </div>
 
-        <!-- شاشة تمرير الموبايل للاعبين -->
+        <!-- 2. شاشة تمرير الموبايل -->
         <div id="screen-pass" class="hidden">
             <h2 class="player-turn-title" id="turn-title">دور اللاعب 1</h2>
-            <p class="subtitle">اضغط على الزر تحت لما يدور عليك الدور عشان تعرف الكلمة السرية لوحدك بدون ما حد يشوف!</p>
-            <button class="btn" onclick="showSecret()">اظهار كلمتي 👁️</button>
+            <p class="subtitle">سليم الموبايل للاعب ده لوحده، واضغط زرار الإظهار لما يكون جاهز من غير ما حد يشوفك!</p>
+            <button class="btn" onclick="showSecret()">اظهار كلمتي السرية 👁️</button>
         </div>
 
-        <!-- شاشة عرض الكلمة السرية -->
+        <!-- 3. شاشة عرض الكلمة -->
         <div id="screen-secret" class="hidden">
-            <h2 id="secret-heading">الكلمة المخصصة لك هي:</h2>
+            <h2>كلمتك السرية:</h2>
             <div class="secret-box">
                 <div class="secret-word" id="secret-word-display">الكشري</div>
             </div>
-            <p class="subtitle" id="secret-desc">احفظها كويس جداً ومتقولهاش لأي حد!</p>
-            <button class="btn" onclick="nextPlayer()">تمام، فهمت (التالي) ✔️</button>
+            <p class="subtitle" id="secret-desc">احفظها كويس جداً وماتقولهاش لأي حد!</p>
+            <button class="btn" onclick="nextPlayer()">تمام، فهمت (أعطِ الموبايل لغيري) ✔️</button>
         </div>
 
-        <!-- شاشة النهاية وجاهزية اللعب -->
-        <div id="screen-ready" class="hidden">
-            <h1>جاهزين للنقاش! 🎙️</h1>
-            <p class="subtitle" style="margin-top: 15px;">كل اللعيبة شافوا كلماتهم. ابدأوا اسألوا بعض أسئلة ذكية واكتشفوا مين الإمبوستر اللي طلعله كلمة مختلفة من غير ما يحس.</p>
-            <button class="btn" onclick="resetGame()" style="margin-top: 20px;">لعبة جديدة 🔄</button>
+        <!-- 4. شاشة النقاش والوقت -->
+        <div id="screen-discussion" class="hidden">
+            <h1>وقت النقاش والنصب! 🎙️</h1>
+            <p class="subtitle">كل واحد يقول كلمتين يثبت بهم إنه فاهم الحوار، واسألوا بعض أسئلة ذكية لغاية ما الوقت يخلص.</p>
+            <div class="timer-display" id="timer">02:00</div>
+            <button class="btn" onclick="startVotingPhase()">خلصنا نقاش، ابدأ التصويت! ⚖️</button>
+        </div>
+
+        <!-- 5. شاشة التصويت -->
+        <div id="screen-voting" class="hidden">
+            <h1>ساعة الحساب 🗳️</h1>
+            <p class="subtitle">مين في رأيك هو الإمبوستر (الخائن) اللي كان متخفي؟ اختر اللاعب:</p>
+            <div class="voting-grid" id="voting-options">
+                <!-- أزرار التصويت هتتولد بالبايثون/جافاسكريبت -->
+            </div>
+        </div>
+
+        <!-- 6. شاشة النتيجة النهائية -->
+        <div id="screen-result" class="hidden">
+            <h1 id="result-title">نتيجة التحقيق 🏆</h1>
+            <p class="subtitle" id="result-desc" style="font-size: 1.1rem; margin: 20px 0;"></p>
+            <button class="btn" onclick="resetGame()">لعب دور تاني 🔄</button>
         </div>
     </div>
 
     <script>
-        // قواعد البيانات (أكثر من 50 عنصر لكل فئة)
         const categoriesData = {
             football: [
                 "محمد صلاح", "ميسي", "كريستيانو رونالدو", "نيمار", "كيليان مبابي", 
                 "كيفين دي بروين", "هالاند", "بنزيمة", "روبرت ليفاندوفسكي", "مودريتش",
                 "محمد الشناوي", "محمود الخطيب", "حازم إمام", "محمود تريزيجيه", "عمر مرموش",
                 "إمام عاشور", "مصطفى محمد", "أحمد سيد زيزو", "رمضان صبحي", "شيكابالا",
-                "عبد الله السعيد", "محمد عبد المنعم", "أفشة", "حسام حسن", "إبراهيم حسن",
-                "حسن الشاذلي", "باهر المحمدي", "سيد عبد الحفيظ", "إبراهيم سعيد", "ميدو",
+                "عبد الله السعيد", "محمد عبد المنعم", "أفشة", "حسام حسن", "ميدو",
                 "عماد متعب", "محمد بركات", "ساديو ماني", "كاسيميرو", "توني كروس", 
                 "فينيسيوس جونيور", "بيلينغهام", "بوكايو ساكا", "هاري كين", "ماركوس راشفورد", 
-                "برونو فيرنانديز", "هوجو لوريس", "مانويل نوير", "تيبو كورتوا", "جانلويجي بوفون", 
-                "سيرجيو راموس", "داني ألفيس", "تشافي", "إنييستا", "باولو مالديني"
+                "برونو فيرنانديز", "مانويل نوير", "تيبو كورتوا", "سيرجيو راموس", "إنييستا"
             ],
             actors: [
                 "عادل إمام", "محمد هنيدي", "أحمد حلمي", "كريم عبد العزيز", "أحمد السقا",
@@ -227,11 +286,9 @@
                 "سمير غانم", "سعيد صالح", "علاء ولي الدين", "كريم محمود عبد العزيز", "بيومي فؤاد", 
                 "أحمد مكي", "ماجد الكدواني", "محمد ممدوح", "دينا الشربيني", "منى زكي", 
                 "حنان ترك", "ياسمين عبد العزيز", "نيللي كريم", "هند صبري", "منة شلبي", 
-                "يسرا", "عبلة كامل", "سوسن بدر", "رجاء الجداوي", "حسن حسني", 
-                "لطفي لبيب", "سيد رجب", "أحمد بدير", "صلاح عبد الله", "محمد ثروت", 
-                "مصطفى خاطر", "علي ربيع", "أحمد فتحي", "كريم فهمي", "حسين فهمي", 
-                "عزت العلايلي", "محمود حميدة", "أحمد مالك", "عصام عمر", "طه الدسوقي", 
-                "أحمد داش", "أمينة خليل", "محمد ممدوح", "هالة صدقي", "رانيا يوسف"
+                "يسرا", "عبلة كامل", "سوسن بدر", "حسن حسني", "لطفي لبيب", 
+                "سيد رجب", "أحمد بدير", "صلاح عبد الله", "محمد ثروت", "مصطفى خاطر", 
+                "علي ربيع", "أحمد فتحي", "كريم فهمي", "حسين فهمي", "محمود حميدة"
             ],
             food: [
                 "كشري", "ملوخية", "مسقعة", "فلافل (طعمية)", "فول مدمس",
@@ -239,11 +296,9 @@
                 "محشي كرنب", "محشي ورق عنب", "كوارع", "كرشة", "فطير مشلتت",
                 "أم علي", "بسبوسة", "كنافة", "عصير قصب", "سوبيا",
                 "تمر هندي", "خروب", "كبدة إسكندراني", "سجق بلدي", "حلبسة",
-                "طاجن لحم بالبصل", "شوربة لسان عصفور", "بطاطس محمرة", "عيش بلدي", "جبنة أولد (قديمة)",
-                "مش", "قرص طرية", "كحك العيد", "بيتي فور", "غريبة",
-                "بصارة", "طعمية بالحمص", "فطير بالسكر", "كشك", "شعرية باللبن",
-                "رز بلبن", "مهلبية", "بلح الشام", "زلابية (لقمة القاضي)", "بسيمة",
-                "جلاش باللحمة", "صينية بطاطس بالفراخ", "فراخ مشوية", "شوربة ملوخية", "طعمية اسكندراني"
+                "شوربة لسان عصفور", "بطاطس محمرة", "عيش بلدي", "جبنة أولد (قديمة)", "مش",
+                "كحك العيد", "بيتي فور", "غريبة", "بصارة", "فطير بالسكر",
+                "رز بلبن", "مهلبية", "بلح الشام", "زلابية (لقمة القاضي)", "جلاش باللحمة"
             ]
         };
 
@@ -251,7 +306,9 @@
             playersCount: 4,
             category: 'football',
             playerWords: [],
-            currentPlayer: 0
+            imposterIndex: -1,
+            currentPlayer: 0,
+            timerInterval: null
         };
 
         function startGame() {
@@ -259,12 +316,9 @@
             gameState.category = document.getElementById('category').value;
 
             const list = categoriesData[gameState.category];
-
-            // اختيار كلمتين مختلفتين تماماً عشوائياً (واحدة للأغلبية، وواحدة للإمبوستر)
             let index1 = Math.floor(Math.random() * list.length);
             let index2 = Math.floor(Math.random() * list.length);
             
-            // للتأكد إن الكلمتين مش زي بعض
             while (index2 === index1) {
                 index2 = Math.floor(Math.random() * list.length);
             }
@@ -272,13 +326,11 @@
             const normalWord = list[index1];
             const imposterWord = list[index2];
 
-            // اختيار مين هو الإمبوستر عشوائياً بين اللاعبين
-            const imposterIndex = Math.floor(Math.random() * gameState.playersCount);
+            gameState.imposterIndex = Math.floor(Math.random() * gameState.playersCount);
 
-            // توزيع الكلمات على اللاعبين
             gameState.playerWords = [];
             for (let i = 0; i < gameState.playersCount; i++) {
-                if (i === imposterIndex) {
+                if (i === gameState.imposterIndex) {
                     gameState.playerWords.push(imposterWord);
                 } else {
                     gameState.playerWords.push(normalWord);
@@ -297,13 +349,7 @@
         }
 
         function showSecret() {
-            const wordDisplay = document.getElementById('secret-word-display');
-            const desc = document.getElementById('secret-desc');
-
-            // يعرض لكل لاعب كلمته الخاصة (سواء كانت الكلمة العادية أو كلمة الإمبوستر وهو مش عارف)
-            wordDisplay.innerText = gameState.playerWords[gameState.currentPlayer];
-            desc.innerText = "احفظ كلمتك كويس وماتخليهمش يعرفوا انت معاك ايه!";
-
+            document.getElementById('secret-word-display').innerText = gameState.playerWords[gameState.currentPlayer];
             document.getElementById('screen-pass').classList.add('hidden');
             document.getElementById('screen-secret').classList.remove('hidden');
         }
@@ -316,13 +362,72 @@
                 updatePassScreen();
                 document.getElementById('screen-pass').classList.remove('hidden');
             } else {
-                // خلصنا كل اللعيبة، نروح لشاشة النقاش
-                document.getElementById('screen-ready').classList.remove('hidden');
+                startDiscussionPhase();
+            }
+        }
+
+        function startDiscussionPhase() {
+            document.getElementById('screen-ready')?.classList?.add('hidden');
+            document.getElementById('screen-discussion').classList.remove('hidden');
+            
+            // عداد تنازلي لمدة دقيقتين (120 ثانية)
+            let timeLeft = 120;
+            const timerDisplay = document.getElementById('timer');
+            
+            clearInterval(gameState.timerInterval);
+            gameState.timerInterval = setInterval(() => {
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                timerDisplay.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(gameState.timerInterval);
+                    startVotingPhase();
+                }
+                timeLeft--;
+            }, 1000);
+        }
+
+        function startVotingPhase() {
+            clearInterval(gameState.timerInterval);
+            document.getElementById('screen-discussion').classList.add('hidden');
+            document.getElementById('screen-voting').classList.remove('hidden');
+
+            const votingGrid = document.getElementById('voting-options');
+            votingGrid.innerHTML = '';
+
+            for (let i = 0; i < gameState.playersCount; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'vote-btn';
+                btn.innerText = `اللاعب رقم ${i + 1}`;
+                btn.onclick = () => checkVote(i);
+                votingGrid.appendChild(btn);
+            }
+        }
+
+        function checkVote(votedIndex) {
+            document.getElementById('screen-voting').classList.add('hidden');
+            document.getElementById('screen-result').classList.remove('hidden');
+
+            const title = document.getElementById('result-title');
+            const desc = document.getElementById('result-desc');
+
+            const realImposterNum = gameState.imposterIndex + 1;
+            const realImposterWord = gameState.playerWords[gameState.imposterIndex];
+            const normalWord = gameState.playerWords[gameState.imposterIndex === 0 ? 1 : 0];
+
+            if (votedIndex === gameState.imposterIndex) {
+                title.innerText = "🎉 مبروك! كشفتو الإمبوستر";
+                desc.innerHTML = `برافو عليكو! قدرتوا تلقطوا الخائن.<br>الإمبوستر كان <b>اللاعب رقم ${realImposterNum}</b> وكانت كلمته السرية (${realImposterWord}) بينما كلمتكم كانت (${normalWord}).`;
+            } else {
+                title.innerText = "❌ خسرتو! الإمبوستر ضحك عليكم";
+                desc.innerHTML = ` للأسف اتضحك عليكم! الإمبوستر الحقيقي كان <b>اللاعب رقم ${realImposterNum}</b> (كلمته كانت: ${realImposterWord}) وأنتم صوتوا للشخص الغلط!`;
             }
         }
 
         function resetGame() {
-            document.getElementById('screen-ready').classList.add('hidden');
+            clearInterval(gameState.timerInterval);
+            document.getElementById('screen-result').classList.add('hidden');
             document.getElementById('screen-home').classList.remove('hidden');
         }
     </script>
